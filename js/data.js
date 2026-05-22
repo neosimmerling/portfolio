@@ -6,7 +6,7 @@ const PORTFOLIO_DATA = {
 
   // ── Persönliche Infos ──────────────────────────────────────
   photographer: {
-    name: "Max Mustermann",
+    name: "Neo Simmerling",
     tagline: "Fotograf & Bildgestalter",
     bio: [
       "Ich bin Fotograf mit Leidenschaft für das Besondere im Alltäglichen. Mit meiner Kamera halte ich Momente fest – von der Dynamik des Sports bis zur Stille der Straße.",
@@ -19,11 +19,11 @@ const PORTFOLIO_DATA = {
     ],
     tags: ["Lightroom Mobile", "Sony Alpha", "Sport", "Street", "Porträt", "Reise", "Events"],
     // Pfad zu deinem Porträt (relativ zur index.html)
-    portrait: "images/portrait.jpg",
-    email: "deine@email.de",
+    portrait: "images/about/aboutme.jpg",
+    email: "neosimmerling@gmail.com",
     socials: [
-      { label: "Instagram", url: "https://instagram.com/dein_handle" },
-      { label: "LinkedIn",  url: "https://linkedin.com/in/dein-profil" }
+      { label: "Instagram", url: "https://instagram.com/neo4shots" },
+      { label: "LinkedIn",  url: "www.linkedin.com/in/neo-simmerling" }
       // weitere Socials hier hinzufügen
     ]
   },
