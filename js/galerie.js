@@ -51,6 +51,9 @@
   const dateEl = document.getElementById("albumDate");
   if (album.date) dateEl.textContent = album.date;
 
+  const countEl = document.getElementById("albumPhotoCount");
+  if (album.photos.length > 0) countEl.textContent = `${album.photos.length} Fotos`;
+
   // Cover als Header-Hintergrund
   const headerBg = document.getElementById("albumHeaderBg");
   headerBg.style.backgroundImage = `url('${album.cover}')`;

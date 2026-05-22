@@ -68,7 +68,23 @@
   color: rgba(232,226,217,0.5);
   font-size: 0.82rem;
   letter-spacing: 0.12em;
+}
+
+.album-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
   margin-top: 0.6rem;
+}
+
+.album-photo-count {
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #c8a564;
+  border: 1px solid rgba(200,165,100,0.35);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
 }
 
 /* ── Album-Foto-Grid ─────────────────────────────────────── */
