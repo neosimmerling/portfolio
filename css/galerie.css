@@ -142,6 +142,12 @@
   letter-spacing: 0.08em;
   margin-top: 0.2rem;
 }
+/* Browser-Linkfarbe überschreiben – kein lila beim Hovern */
+a .item-date,
+a:visited .item-date,
+a:hover .item-date {
+  color: rgba(200,165,100,0.7);  /* Gold-Ton passend zum Design */
+}
 
 /* Lightbox: Foto-Zähler */
 .lb-counter {
