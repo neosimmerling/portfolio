@@ -73,10 +73,9 @@
       : visible.filter(a => a.category === filter);
 
     galleryGrid.innerHTML = albums.map((album, idx) => {
-      const catLabel  = catLabels[album.category] || album.category;
-      const dateStr   = album.date ? `<p class="item-date" style="color:rgba(232,226,217,0.45)">${album.date}</p>` : "";
+      const catLabel   = catLabels[album.category] || album.category;
+      const dateStr    = album.date ? `<p class="item-date">${album.date}</p>` : "";
       const photoCount = album.photos.length;
-      const countStr  = photoCount > 0 ? `<span class="album-count">${photoCount} Fotos</span>` : "";
       return `
         <a class="masonry-item album-card fade-in"
            href="galerie.html?album=${encodeURIComponent(album.id)}"
@@ -91,18 +90,33 @@
             />
             <div class="img-skeleton"></div>
           </div>
-          ${countStr}
           <div class="item-overlay">
             <div>
               <p class="item-title">${album.title}</p>
               <p class="item-cat">${catLabel}</p>
               ${dateStr}
             </div>
-            <span class="album-arrow">→</span>
+            ${photoCount > 0 ? `<span class="album-count">${photoCount}&nbsp;Fotos</span>` : ""}
           </div>
         </a>
       `;
     }).join("");
+
+    // Farben per JS setzen – verhindert lila Browser-Linkfarbe in <a>-Tags
+    galleryGrid.querySelectorAll(".album-card").forEach(card => {
+      card.querySelectorAll(".item-title, .item-cat, .item-date, .album-count").forEach(el => {
+        if (el.classList.contains("item-title")) el.style.color = "#f0ebe3";
+        if (el.classList.contains("item-cat"))   el.style.color = "#c8a564";
+        if (el.classList.contains("item-date"))  el.style.color = "rgba(232,226,217,0.45)";
+        if (el.classList.contains("album-count")) el.style.color = "#c8a564";
+      });
+
+      // Hover: Badge einblenden
+      const badge = card.querySelector(".album-count");
+      if (!badge) return;
+      card.addEventListener("mouseenter", () => { badge.style.opacity = "1"; badge.style.transform = "translateY(0)"; });
+      card.addEventListener("mouseleave", () => { badge.style.opacity = "0"; badge.style.transform = "translateY(4px)"; });
+    });
 
     requestAnimationFrame(() => {
       document.querySelectorAll(".masonry-item.fade-in").forEach((el, i) => {
