@@ -45,6 +45,34 @@ Dann `http://localhost:8000` öffnen.
 
 ---
 
+## neues Album hinzufügen:
+
+### Schritt 1:
+- Ordner anlegen (Bspw. in `images/football-suhl-2025/`)
+- Fotos reinkopieren
+
+### Schritt 2:
+- neuer Eintrag in `js/data.js` in Liste `albums`:
+
+```js
+    {
+        id: "football-jena-2025",        // → URL: galerie.html?album=football-jena-2025
+        title: "FC Jena vs. Bayern",
+        date: "12.04.2025",              // optional
+        category: "sport",               // sport | street | portrait | travel
+        cover: "images/football-jena-2025/cover.jpg",  // Cover für die Hauptgalerie
+        photos: [
+            { src: "images/football-jena-2025/foto1.jpg", title: "Tor im letzten Moment" },
+            { src: "images/football-jena-2025/foto2.jpg", title: "Zweikampf" },
+            // weitere Fotos...
+        ]
+    }
+```
+- Cover erscheint automatisch auf `index.html`, Klick führt auf Detailseite
+
+
+---
+
 ## Auf GitHub Pages deployen
 
 ### Repository erstellen
