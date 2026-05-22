@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – Dein Name | Fotograf</title>
+  <meta name="description" content="Fotografen-Portfolio – Sport, Street, Porträt & mehr." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav-logo">DEIN NAME<span>.</span></a>
+    <div class="nav-links">
+      <a href="#gallery">Galerie</a>
+      <a href="#about">Über mich</a>
+      <a href="#contact">Kontakt</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#gallery" class="mobile-link">Galerie</a>
+    <a href="#about" class="mobile-link">Über mich</a>
+    <a href="#contact" class="mobile-link">Kontakt</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+      <!-- Platzhalter-Bild – ersetze mit deinem echten Hero-Bild -->
+      <div class="hero-placeholder"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Fotograf &amp; Bildgestalter</p>
+      <h1 class="hero-title">Momente.<br /><em>Festgehalten.</em></h1>
+      <p class="hero-sub">Sport · Street · Porträt · Reise</p>
+      <a href="#gallery" class="btn-hero">Zur Galerie</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-header">
+      <p class="section-eyebrow">Portfolio</p>
+      <h2 class="section-title">Meine Arbeiten</h2>
+    </div>
+
+    <!-- FILTER -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">Alle</button>
+      <button class="filter-btn" data-filter="sport">Sport</button>
+      <button class="filter-btn" data-filter="street">Street</button>
+      <button class="filter-btn" data-filter="portrait">Porträt</button>
+      <button class="filter-btn" data-filter="travel">Reise</button>
+    </div>
+
+    <!-- MASONRY GRID -->
+    <div class="masonry" id="gallery-grid">
+      <!-- Bilder werden via JS aus data/photos.js geladen -->
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bildvorschau">
+    <button class="lb-close" id="lbClose" aria-label="Schließen">&#x2715;</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Vorheriges Bild">&#8592;</button>
+    <button class="lb-next" id="lbNext" aria-label="Nächstes Bild">&#8594;</button>
+    <div class="lb-img-wrap">
+      <img class="lb-img" id="lbImg" src="" alt="" draggable="false" />
+    </div>
+    <div class="lb-meta">
+      <p class="lb-title" id="lbTitle"></p>
+      <p class="lb-cat" id="lbCat"></p>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-img-wrap">
+      <!-- Ersetze src mit deinem Porträt-Foto -->
+      <div class="about-img-placeholder" id="aboutImgWrap">
+        <img src="" alt="Porträt" class="about-img" id="aboutImg" style="display:none" />
+        <div class="about-img-fallback" id="aboutFallback">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="38" r="20" fill="rgba(255,255,255,0.15)"/>
+            <ellipse cx="50" cy="85" rx="35" ry="25" fill="rgba(255,255,255,0.1)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <p class="section-eyebrow">Über mich</p>
+      <h2 class="section-title" id="aboutName">Dein Name</h2>
+      <div class="about-bio" id="aboutBio">
+        <p>Ich bin Fotograf mit Leidenschaft für das Besondere im Alltäglichen. Mit meiner Kamera halte ich Momente fest – von der Dynamik des Sports bis zur Stille der Straße.</p>
+        <p>Seit Jahren begleite ich Sportevents, streife durch Städte und schaffe Porträts, die echte Persönlichkeiten zeigen. Jedes Bild erzählt eine Geschichte.</p>
+      </div>
+
+      <div class="about-stats" id="aboutStats">
+        <div class="stat">
+          <span class="stat-num" id="stat1Num">5+</span>
+          <span class="stat-label" id="stat1Label">Jahre Erfahrung</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat2Num">500+</span>
+          <span class="stat-label" id="stat2Label">Projekte</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat3Num">4</span>
+          <span class="stat-label" id="stat3Label">Kategorien</span>
+        </div>
+      </div>
+
+      <div class="about-tags" id="aboutTagsWrap">
+        <!-- Tags werden via JS geladen -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <p class="section-eyebrow">Kontakt</p>
+      <h2 class="section-title">Lass uns reden.</h2>
+      <p class="contact-sub" id="contactSub">Interesse an einer Zusammenarbeit? Schreib mir gerne.</p>
+      <a class="contact-mailto" id="contactMailto" href="mailto:deine@email.de">deine@email.de</a>
+
+      <div class="contact-socials" id="contactSocials">
+        <!-- Socials werden via JS geladen -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> <span id="footerName">Dein Name</span>. Alle Bilder urheberrechtlich geschützt. Kein Download ohne Genehmigung.</p>
+    <a href="admin.html" class="footer-admin-link">⚙</a>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – Portfolio Toolbox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <p class="login-label">Portfolio Admin</p>
+      <h1 class="login-title">Toolbox</h1>
+      <div class="login-form">
+        <input type="password" id="pwInput" placeholder="Passwort" autocomplete="current-password" />
+        <button id="loginBtn">Einloggen</button>
+      </div>
+      <p class="login-hint" id="loginHint"></p>
+      <p class="login-note">Standardpasswort: <code>foto2024</code><br />Ändern in js/admin.js</p>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-panel" id="adminPanel" style="display:none">
+
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-dot">●</span> Admin
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="snav-item active" data-tab="photos">
+          <span class="snav-icon">◈</span> Fotos
+        </a>
+        <a href="#" class="snav-item" data-tab="about">
+          <span class="snav-icon">◉</span> Steckbrief
+        </a>
+        <a href="#" class="snav-item" data-tab="settings">
+          <span class="snav-icon">◎</span> Einstellungen
+        </a>
+      </nav>
+      <div class="sidebar-bottom">
+        <a href="index.html" class="sidebar-back">← Portfolio</a>
+        <button class="sidebar-logout" id="logoutBtn">Ausloggen</button>
+      </div>
+    </aside>
+
+    <main class="admin-main" id="adminMain">
+
+      <!-- TAB: PHOTOS -->
+      <div class="tab-content active" id="tab-photos">
+        <div class="tab-header">
+          <h2>Fotos verwalten</h2>
+          <button class="btn-primary" id="addPhotoBtn">+ Foto hinzufügen</button>
+        </div>
+        <p class="tab-note">Änderungen werden in <code>js/data.js</code> übernommen (Code exportieren und ersetzen).</p>
+
+        <div class="photo-table-wrap">
+          <table class="photo-table" id="photoTable">
+            <thead>
+              <tr>
+                <th style="width:50px">ID</th>
+                <th>Titel</th>
+                <th>Kategorie</th>
+                <th>Dateipfad</th>
+                <th style="width:110px">Aktionen</th>
+              </tr>
+            </thead>
+            <tbody id="photoTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: ABOUT -->
+      <div class="tab-content" id="tab-about">
+        <div class="tab-header">
+          <h2>Steckbrief bearbeiten</h2>
+          <button class="btn-primary" id="saveAboutBtn">Speichern</button>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="aName" />
+          </div>
+          <div class="form-group">
+            <label>E-Mail</label>
+            <input type="email" id="aEmail" />
+          </div>
+          <div class="form-group full">
+            <label>Bio Absatz 1</label>
+            <textarea id="aBio1" rows="3"></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Bio Absatz 2</label>
+            <textarea id="aBio2" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Stat 1 (Zahl)</label>
+            <input type="text" id="aStat1Num" />
+          </div>
+          <div class="form-group">
+            <label>Stat 1 (Label)</label>
+            <input type="text" id="aStat1Label" />
+          </div>
+          <div class="form-group">
+            <label>Stat 2 (Zahl)</label>
+            <input type="text" id="aStat2Num" />
+          </div>
+          <div class="form-group">
+            <label>Stat 2 (Label)</label>
+            <input type="text" id="aStat2Label" />
+          </div>
+          <div class="form-group">
+            <label>Stat 3 (Zahl)</label>
+            <input type="text" id="aStat3Num" />
+          </div>
+          <div class="form-group">
+            <label>Stat 3 (Label)</label>
+            <input type="text" id="aStat3Label" />
+          </div>
+          <div class="form-group full">
+            <label>Tags (kommagetrennt)</label>
+            <input type="text" id="aTags" />
+          </div>
+          <div class="form-group">
+            <label>Instagram URL</label>
+            <input type="url" id="aInstagram" />
+          </div>
+          <div class="form-group">
+            <label>LinkedIn URL</label>
+            <input type="url" id="aLinkedin" />
+          </div>
+          <div class="form-group">
+            <label>Portrait-Bildpfad</label>
+            <input type="text" id="aPortrait" placeholder="images/portrait.jpg" />
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: SETTINGS -->
+      <div class="tab-content" id="tab-settings">
+        <div class="tab-header">
+          <h2>Einstellungen</h2>
+        </div>
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h3>Passwort ändern</h3>
+            <div class="form-group">
+              <label>Neues Passwort</label>
+              <input type="password" id="newPw" />
+            </div>
+            <div class="form-group">
+              <label>Wiederholen</label>
+              <input type="password" id="newPw2" />
+            </div>
+            <button class="btn-primary" id="savePwBtn">Passwort speichern</button>
+            <p class="hint" id="pwHint"></p>
+          </div>
+
+          <div class="settings-card">
+            <h3>Daten exportieren</h3>
+            <p>Exportiert den aktuellen Stand als <code>data.js</code>. Datei in deinen <code>js/</code> Ordner ersetzen.</p>
+            <button class="btn-outline" id="exportBtn">data.js exportieren</button>
+          </div>
+
+          <div class="settings-card">
+            <h3>Deployment</h3>
+            <p>Diese Seite funktioniert als statische Website. Einfach in ein GitHub Repository pushen und GitHub Pages aktivieren.</p>
+            <div class="code-block">
+              git add .<br/>
+              git commit -m "Portfolio update"<br/>
+              git push origin main
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: Foto hinzufügen/bearbeiten -->
+  <div class="modal-overlay" id="photoModal" style="display:none">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Foto hinzufügen</h3>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Titel</label>
+          <input type="text" id="mTitle" />
+        </div>
+        <div class="form-group">
+          <label>Kategorie</label>
+          <select id="mCategory">
+            <option value="sport">Sport</option>
+            <option value="street">Street</option>
+            <option value="portrait">Porträt</option>
+            <option value="travel">Reise</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Bildpfad (src)</label>
+          <input type="text" id="mSrc" placeholder="images/datei.jpg" />
+        </div>
+        <div class="form-group full">
+          <label>Vorschau-Pfad (thumb, leer = gleich wie src)</label>
+          <input type="text" id="mThumb" placeholder="images/datei.jpg" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" id="modalCancel">Abbrechen</button>
+        <button class="btn-primary" id="modalSave">Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
