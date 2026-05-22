@@ -66,9 +66,11 @@
   };
 
   function buildGallery(filter) {
+    // Alben mit visible: false werden ausgeblendet
+    const visible = data.albums.filter(a => a.visible !== false);
     const albums = filter === "all"
-      ? data.albums
-      : data.albums.filter(a => a.category === filter);
+      ? visible
+      : visible.filter(a => a.category === filter);
 
     galleryGrid.innerHTML = albums.map((album, idx) => {
       const catLabel = catLabels[album.category] || album.category;
