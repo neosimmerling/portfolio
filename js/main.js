@@ -74,7 +74,7 @@
 
     galleryGrid.innerHTML = albums.map((album, idx) => {
       const catLabel = catLabels[album.category] || album.category;
-      const dateStr  = album.date ? `<p class="item-date">${album.date}</p>` : "";
+      const dateStr  = album.date ? `<p class="item-date" style="color:rgba(232,226,217,0.45)">${album.date}</p>` : "";
       return `
         <a class="masonry-item album-card fade-in"
            href="galerie.html?album=${encodeURIComponent(album.id)}"

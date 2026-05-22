@@ -109,6 +109,12 @@
   display: block;
   text-decoration: none;
   cursor: pointer;
+  color: inherit;  /* verhindert lila Browser-Linkfarbe */
+}
+.album-card:visited,
+.album-card:hover,
+.album-card:active {
+  color: inherit;
 }
 .album-card .img-wrap {
   width: 100%;
@@ -141,12 +147,6 @@
   color: rgba(232,226,217,0.45);
   letter-spacing: 0.08em;
   margin-top: 0.2rem;
-}
-/* Browser-Linkfarbe überschreiben – kein lila beim Hovern */
-a .item-date,
-a:visited .item-date,
-a:hover .item-date {
-  color: rgba(200,165,100,0.7);  /* Gold-Ton passend zum Design */
 }
 
 /* Lightbox: Foto-Zähler */
