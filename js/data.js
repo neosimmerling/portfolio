@@ -85,14 +85,45 @@ const PORTFOLIO_DATA = {
 
     // ── Platzhalter-Alben – auf visible: true setzen sobald Fotos da sind ──
     {
-      id: "street-berlin",
-      title: "Berlin Streets",
-      date: "März 2025",
-      category: "street",
-      visible: false,           // ← ausgeblendet bis Fotos vorhanden
-      cover: "images/street-berlin/cover.jpg",
-      photos: []
-    },
+      id: "gunslingers-details-letzter-sonntag",
+      title: "Gunslingers - Details",
+      date: "17.05.2026",
+      category: "sport",
+      cover: "images/test2/15-_MG_0431.jpg",
+      photos: [
+        { src: "images/test2/1-_MG_0016.jpg", title: "1-_MG_0016" },
+        { src: "images/test2/2-_MG_0020.jpg", title: "2-_MG_0020" },
+        { src: "images/test2/3-_MG_0021.jpg", title: "3-_MG_0021" },
+        { src: "images/test2/4-_MG_0044.jpg", title: "4-_MG_0044" },
+        { src: "images/test2/5-_MG_0150.jpg", title: "5-_MG_0150" },
+        { src: "images/test2/6-_MG_0151.jpg", title: "6-_MG_0151" },
+        { src: "images/test2/7-_MG_0152.jpg", title: "7-_MG_0152" },
+        { src: "images/test2/8-_MG_0367.jpg", title: "8-_MG_0367" },
+        { src: "images/test2/9-_MG_0368.jpg", title: "9-_MG_0368" },
+        { src: "images/test2/10-_MG_0371.jpg", title: "10-_MG_0371" },
+        { src: "images/test2/11-_MG_0378.jpg", title: "11-_MG_0378" },
+        { src: "images/test2/12-_MG_0379.jpg", title: "12-_MG_0379" },
+        { src: "images/test2/13-_MG_0396.jpg", title: "13-_MG_0396" },
+        { src: "images/test2/14-_MG_0398.jpg", title: "14-_MG_0398" },
+        { src: "images/test2/15-_MG_0431.jpg", title: "15-_MG_0431" },
+        { src: "images/test2/16-_MG_0446.jpg", title: "16-_MG_0446" },
+        { src: "images/test2/17-_MG_0452.jpg", title: "17-_MG_0452" },
+        { src: "images/test2/18-_MG_0462.jpg", title: "18-_MG_0462" },
+        { src: "images/test2/19-_MG_0470.jpg", title: "19-_MG_0470" },
+        { src: "images/test2/20-_MG_0474.jpg", title: "20-_MG_0474" },
+        { src: "images/test2/21-_MG_0490.jpg", title: "21-_MG_0490" },
+        { src: "images/test2/22-_MG_0513.jpg", title: "22-_MG_0513" },
+        { src: "images/test2/23-_MG_0520.jpg", title: "23-_MG_0520" },
+        { src: "images/test2/24-_MG_0521.jpg", title: "24-_MG_0521" },
+        { src: "images/test2/25-_MG_0535.jpg", title: "25-_MG_0535" },
+        { src: "images/test2/26-_MG_0614.jpg", title: "26-_MG_0614" },
+        { src: "images/test2/27-_MG_0662.jpg", title: "27-_MG_0662" },
+        { src: "images/test2/28-_MG_0687.jpg", title: "28-_MG_0687" },
+        { src: "images/test2/29-_MG_0725.jpg", title: "29-_MG_0725" },
+        { src: "images/test2/30-_MG_0740.jpg", title: "30-_MG_0740" },
+        { src: "images/test2/31-_MG_0741.jpg", title: "31-_MG_0741" }
+  ]
+},
     {
       id: "portraits-2025",
       title: "Porträts 2025",
