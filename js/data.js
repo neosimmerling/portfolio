@@ -23,7 +23,7 @@ const PORTFOLIO_DATA = {
     email: "neosimmerling@gmail.com",
     socials: [
       { label: "Instagram", url: "https://instagram.com/neo4shots" },
-      { label: "LinkedIn",  url: "www.linkedin.com/in/neo-simmerling" }
+      { label: "LinkedIn",  url: "https://www.linkedin.com/in/neo-simmerling" }
       // weitere Socials hier hinzufügen
     ]
   },
