@@ -73,8 +73,10 @@
       : visible.filter(a => a.category === filter);
 
     galleryGrid.innerHTML = albums.map((album, idx) => {
-      const catLabel = catLabels[album.category] || album.category;
-      const dateStr  = album.date ? `<p class="item-date" style="color:rgba(232,226,217,0.45)">${album.date}</p>` : "";
+      const catLabel  = catLabels[album.category] || album.category;
+      const dateStr   = album.date ? `<p class="item-date" style="color:rgba(232,226,217,0.45)">${album.date}</p>` : "";
+      const photoCount = album.photos.length;
+      const countStr  = photoCount > 0 ? `<span class="album-count">${photoCount} Fotos</span>` : "";
       return `
         <a class="masonry-item album-card fade-in"
            href="galerie.html?album=${encodeURIComponent(album.id)}"
@@ -85,8 +87,11 @@
               alt="${album.title}"
               loading="lazy"
               oncontextmenu="return false"
+              onload="this.classList.add('img-loaded'); this.nextElementSibling.style.opacity='0';"
             />
+            <div class="img-skeleton"></div>
           </div>
+          ${countStr}
           <div class="item-overlay">
             <div>
               <p class="item-title">${album.title}</p>

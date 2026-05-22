@@ -65,8 +65,10 @@
           alt="${photo.title}"
           loading="lazy"
           oncontextmenu="return false"
+          onload="this.classList.add('img-loaded'); this.nextElementSibling.style.opacity='0';"
           onerror="this.closest('.masonry-item').classList.add('img-error')"
         />
+        <div class="img-skeleton"></div>
       </div>
       <div class="item-overlay">
         <div>
@@ -95,8 +97,10 @@
   function openLightbox(idx) {
     currentIndex = idx;
     const photo = album.photos[idx];
+    lbImg.classList.remove("img-loaded");
     lbImg.src        = photo.src;
     lbImg.alt        = photo.title;
+    lbImg.onload     = () => lbImg.classList.add("img-loaded");
     lbTitle.textContent   = photo.title;
     lbCounter.textContent = `${idx + 1} / ${album.photos.length}`;
     lightbox.classList.add("open");

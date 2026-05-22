@@ -165,6 +165,84 @@
   font-size: 1rem;
 }
 
+/* ── Skeleton Loader ─────────────────────────────────────── */
+.img-wrap {
+  position: relative;
+  background: #141414;
+  min-height: 180px;
+}
+
+.img-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 0%,
+    rgba(255,255,255,0.07) 50%,
+    rgba(255,255,255,0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Bild startet unsichtbar + leicht blur */
+.img-wrap img {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  display: block;
+  width: 100%;
+}
+
+/* Sobald geladen: Skeleton weg, Bild scharf einblenden */
+.img-wrap img.img-loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+.img-wrap img.img-loaded ~ .img-skeleton,
+.img-wrap img.img-loaded + .img-skeleton {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Lightbox-Bild: Blur → scharf */
+.lb-img {
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.45s ease, filter 0.45s ease;
+}
+.lb-img.img-loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* ── Foto-Anzahl Badge ───────────────────────────────────── */
+.album-count {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+  background: rgba(10,10,10,0.72);
+  backdrop-filter: blur(6px);
+  color: rgba(232,226,217,0.85);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.08);
+  pointer-events: none;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 640px) {
   .album-header {
