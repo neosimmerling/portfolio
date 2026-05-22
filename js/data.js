@@ -13,11 +13,11 @@ const PORTFOLIO_DATA = {
       "Seit Jahren begleite ich Sportevents, streife durch Städte und schaffe Porträts, die echte Persönlichkeiten zeigen. Jedes Bild erzählt eine Geschichte – und ich möchte, dass du sie spürst."
     ],
     stats: [
-      { num: "7+",   label: "Jahre Erfahrung" },
-      { num: "800+", label: "Projekte" },
-      { num: "4",    label: "Kategorien" }
+      { num: "4+",   label: "Jahre Erfahrung" },
+      { num: "zig", label: "Projekte" },
+      { num: "viele",    label: "Kategorien" }
     ],
-    tags: ["Lightroom Mobile", "Sony Alpha", "Sport", "Street", "Porträt", "Reise", "Events"],
+    tags: ["Lightroom Mobile", "Canon", "Sport", "Street", "Porträt", "Reise", "Events"],
     // Pfad zu deinem Porträt (relativ zur index.html)
     portrait: "images/about/aboutme.jpg",
     email: "neosimmerling@gmail.com",
