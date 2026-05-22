@@ -15,6 +15,10 @@ img {
   user-drag: none;
   pointer-events: none;
 }
+/* Album-Karten sind <a>-Tags – pointer-events muss am Container erlaubt sein */
+a.masonry-item, a.album-card {
+  pointer-events: auto;
+}
 .lb-img, .about-img { pointer-events: none; }
 
 ::selection { background: rgba(200,165,100,0.3); }

@@ -1,0 +1,171 @@
+/* ============================================================
+   GALERIE.CSS – Album-Detailseite
+   ============================================================ */
+
+/* ── Album-Header ─────────────────────────────────────────── */
+.album-header {
+  position: relative;
+  height: 52vh;
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.album-header-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  transform: scale(1.04);
+  transition: transform 8s ease;
+}
+.album-header:hover .album-header-bg {
+  transform: scale(1);
+}
+
+.album-header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,10,0.25) 0%,
+    rgba(10,10,10,0.70) 70%,
+    rgba(10,10,10,0.95) 100%
+  );
+}
+
+.album-header-content {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 5vw 3.5rem;
+  width: 100%;
+}
+
+.back-link {
+  display: inline-block;
+  color: rgba(232,226,217,0.6);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: #c8a564; }
+
+.album-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #e8e2d9;
+  margin-top: 0.3rem;
+}
+
+.album-date {
+  color: rgba(232,226,217,0.5);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  margin-top: 0.6rem;
+}
+
+/* ── Album-Foto-Grid ─────────────────────────────────────── */
+.album-section {
+  padding: 4rem 5vw 6rem;
+}
+
+/* Bild-Wrapper im Grid */
+.masonry-item .img-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.masonry-item .img-wrap img {
+  width: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.masonry-item:hover .img-wrap img {
+  transform: scale(1.04);
+}
+
+/* Fehlerzustand */
+.masonry-item.img-error {
+  background: rgba(255,255,255,0.04);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.12);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Album-Karten in index.html */
+.album-card {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.album-card .img-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.album-card .img-wrap img {
+  width: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.album-card:hover .img-wrap img {
+  transform: scale(1.04);
+}
+
+.album-arrow {
+  font-size: 1.1rem;
+  color: #c8a564;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.album-card:hover .album-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.item-date {
+  font-size: 0.72rem;
+  color: rgba(232,226,217,0.45);
+  letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+}
+
+/* Lightbox: Foto-Zähler */
+.lb-counter {
+  font-size: 0.78rem;
+  color: rgba(232,226,217,0.45);
+  letter-spacing: 0.12em;
+  margin-top: 0.25rem;
+}
+
+/* Not-found */
+.album-not-found {
+  text-align: center;
+  padding: 8rem 2rem;
+  color: rgba(232,226,217,0.4);
+  font-size: 1rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .album-header {
+    height: 44vh;
+    min-height: 260px;
+  }
+  .album-section {
+    padding: 2.5rem 1rem 4rem;
+  }
+}
