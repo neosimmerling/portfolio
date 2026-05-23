@@ -4,334 +4,135 @@
 
 /* ── Album-Header ─────────────────────────────────────────── */
 .album-header {
-  position: relative;
-  height: 52vh;
-  min-height: 320px;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+  position: relative; height: 52vh; min-height: 320px;
+  display: flex; align-items: flex-end; overflow: hidden;
 }
-
 .album-header-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center 40%;
-  background-repeat: no-repeat;
-  transform: scale(1.04);
-  transition: transform 8s ease;
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center 40%;
+  transform: scale(1.04); transition: transform 8s ease;
 }
-.album-header:hover .album-header-bg {
-  transform: scale(1);
-}
-
+.album-header:hover .album-header-bg { transform: scale(1); }
 .album-header-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(10,10,10,0.25) 0%,
-    rgba(10,10,10,0.70) 70%,
-    rgba(10,10,10,0.95) 100%
-  );
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.70) 70%, rgba(10,10,10,0.95) 100%);
 }
-
-.album-header-content {
-  position: relative;
-  z-index: 2;
-  padding: 3rem 5vw 3.5rem;
-  width: 100%;
-}
+.album-header-content { position: relative; z-index: 2; padding: 3rem 5vw 3.5rem; width: 100%; }
 
 .back-link {
-  display: inline-block;
-  color: rgba(232,226,217,0.6);
-  text-decoration: none;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 1.4rem;
-  transition: color 0.2s;
+  display: inline-block; color: rgba(232,226,217,0.6);
+  text-decoration: none; font-size: 0.78rem; letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 1.4rem; transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 .back-link:hover { color: #c8a564; }
 
 .album-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 3.8rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: #e8e2d9;
-  margin-top: 0.3rem;
+  font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 700;
+  line-height: 1.15; color: #e8e2d9; margin-top: 0.3rem;
 }
-
-.album-date {
-  color: rgba(232,226,217,0.5);
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-}
-
-.album-header-meta {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-top: 0.6rem;
-}
-
+.album-header-meta { display: flex; align-items: center; gap: 1.2rem; margin-top: 0.6rem; flex-wrap: wrap; }
+.album-date { color: rgba(232,226,217,0.5); font-size: 0.82rem; letter-spacing: 0.12em; }
 .album-photo-count {
-  font-size: 0.72rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: #c8a564;
-  border: 1px solid rgba(200,165,100,0.35);
+  font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase;
+  color: #c8a564; border: 1px solid rgba(200,165,100,0.35);
   padding: 0.2rem 0.6rem;
-  border-radius: 2px;
 }
 
-/* ── Album-Foto-Grid ─────────────────────────────────────── */
-.album-section {
-  padding: 4rem 5vw 6rem;
+/* ── Foto-Grid – JS Masonry ──────────────────────────────── */
+.album-section { padding: 2.5rem 1.5rem 5rem; }
+
+#album-grid {
+  position: relative;
 }
 
-/* Bild-Wrapper im Grid */
-.masonry-item .img-wrap {
-  width: 100%;
+#album-grid .masonry-item {
+  position: absolute;
   overflow: hidden;
-  border-radius: 2px;
-}
-.masonry-item .img-wrap img {
-  width: 100%;
-  display: block;
-  transition: transform 0.6s ease;
-}
-.masonry-item:hover .img-wrap img {
-  transform: scale(1.04);
-}
-
-/* Fehlerzustand */
-.masonry-item.img-error {
-  background: rgba(255,255,255,0.04);
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.12);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-/* Album-Karten in index.html */
-.album-card {
-  display: block;
-  text-decoration: none;
   cursor: pointer;
-  color: inherit;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  transform: translateY(10px);
 }
-.album-card:visited,
-.album-card:hover,
-.album-card:active {
-  color: inherit;
+
+#album-grid .masonry-item.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
-.album-card .img-wrap {
+
+#album-grid .masonry-item img {
   width: 100%;
-  overflow: hidden;
-  border-radius: 2px;
-  height: 280px !important;
-  min-height: unset !important;
-}
-.album-card .img-wrap img {
-  width: 100%;
-  height: 100% !important;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
   display: block;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
 }
-.album-card:hover .img-wrap img {
-  transform: scale(1.04);
+#album-grid .masonry-item:hover img { transform: scale(1.04); }
+
+/* Overlay */
+.masonry-item .item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: flex-end;
+  padding: 1rem;
+}
+.masonry-item:hover .item-overlay { opacity: 1; }
+@media (hover: none) { .masonry-item .item-overlay { opacity: 1; } }
+
+.item-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #f0ebe3; }
+
+/* Fehler */
+.masonry-item.img-error {
+  background: rgba(255,255,255,0.04); min-height: 120px;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.12); font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
 }
 
-/* Overlay-Layout: links Text, rechts Pfeil + Anzahl */
-.album-overlay-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
+/* ── Album-Cover-Karten (index.html) ─────────────────────── */
+.album-card { display: block; text-decoration: none; cursor: pointer; color: inherit; -webkit-tap-highlight-color: transparent; }
+.album-card:visited, .album-card:hover, .album-card:active { color: inherit; }
+.album-card .img-wrap { overflow: hidden; }
+.album-card .img-wrap img { width: 100%; display: block; transition: transform 0.6s ease; }
+.album-card:hover .img-wrap img { transform: scale(1.04); }
 
-.album-arrow {
-  font-size: 1.1rem;
-  color: #c8a564;
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 0.3s, transform 0.3s;
-}
-.album-card:hover .album-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
+.album-arrow { font-size: 1.1rem; color: #c8a564; opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.3s; }
+.album-card:hover .album-arrow { opacity: 1; transform: translateX(0); }
 
-/* Foto-Anzahl Badge – rechts unten im Overlay, Goldton */
 .album-count {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: #c8a564;
-  border: 1px solid rgba(200,165,100,0.4);
-  background: rgba(10,10,10,0.5);
-  padding: 0.25rem 0.65rem;
-  border-radius: 2px;
-  white-space: nowrap;
-  align-self: flex-end;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  pointer-events: none;
+  font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  color: #c8a564; border: 1px solid rgba(200,165,100,0.4);
+  background: rgba(10,10,10,0.5); padding: 0.25rem 0.65rem;
+  white-space: nowrap; opacity: 0; transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none;
 }
 
-.item-date {
-  font-size: 0.72rem;
-  color: rgba(232,226,217,0.45);
-  letter-spacing: 0.08em;
-  margin-top: 0.2rem;
-}
+.item-date { font-size: 0.72rem; color: rgba(232,226,217,0.45); letter-spacing: 0.08em; margin-top: 0.2rem; }
+.lb-counter { font-size: 0.78rem; color: rgba(232,226,217,0.45); letter-spacing: 0.12em; margin-top: 0.25rem; }
 
-.lb-counter {
-  font-size: 0.78rem;
-  color: rgba(232,226,217,0.45);
-  letter-spacing: 0.12em;
-  margin-top: 0.25rem;
-}
+.album-not-found { text-align: center; padding: 8rem 2rem; color: rgba(232,226,217,0.4); }
 
-/* Not-found */
-.album-not-found {
-  text-align: center;
-  padding: 8rem 2rem;
-  color: rgba(232,226,217,0.4);
-  font-size: 1rem;
-}
-
-/* ── Skeleton Loader ─────────────────────────────────────── */
-.img-wrap {
-  position: relative;
-  background: #141414;
-  overflow: hidden;
-}
-
-.img-skeleton {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.03) 0%,
-    rgba(255,255,255,0.07) 50%,
-    rgba(255,255,255,0.03) 100%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 1.6s ease-in-out infinite;
-  z-index: 1;
-  transition: opacity 0.4s ease;
-}
-
-@keyframes skeleton-shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Bild startet unsichtbar + leicht blur */
-.img-wrap img {
-  position: relative;
-  z-index: 2;
-  opacity: 0;
-  filter: blur(8px);
-  transition: opacity 0.5s ease, filter 0.5s ease;
-  display: block;
-  width: 100%;
-}
-
-/* Sobald geladen: Skeleton weg, Bild scharf einblenden */
-.img-wrap img.img-loaded {
-  opacity: 1;
-  filter: blur(0);
-}
-.img-wrap img.img-loaded ~ .img-skeleton,
-.img-wrap img.img-loaded + .img-skeleton {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Lightbox-Bild: Blur → scharf */
-.lb-img {
-  opacity: 0;
-  filter: blur(12px);
-  transition: opacity 0.45s ease, filter 0.45s ease;
-}
-.lb-img.img-loaded {
-  opacity: 1;
-  filter: blur(0);
-}
-
-/* ── Foto-Anzahl Badge ───────────────────────────────────── */
-.album-count {
-  position: absolute;
-  top: 0.65rem;
-  right: 0.65rem;
-  z-index: 10;
-  background: rgba(10,10,10,0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffffff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  padding: 0.28rem 0.65rem;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255,0.15);
-  pointer-events: none;
-  user-select: none;
-}
+/* Lightbox Blur */
+.lb-img { opacity: 0; filter: blur(12px); transition: opacity 0.45s ease, filter 0.45s ease; }
+.lb-img.img-loaded { opacity: 1; filter: blur(0); }
 
 /* ── Responsive ──────────────────────────────────────────── */
-
-/* Tablet Landscape (≤ 1100px) */
 @media (max-width: 1100px) {
-  .album-section { padding: 3rem 2rem 5rem; }
+  .album-section { padding: 2rem 1.25rem 4rem; }
 }
-
-/* Tablet Portrait / iPad (≤ 900px) */
 @media (max-width: 900px) {
-  .album-header {
-    height: 46vh;
-    min-height: 280px;
-  }
-  .album-header-content { padding: 2.5rem 3vw 3rem; }
-  .album-section { padding: 2.5rem 1.5rem 4rem; }
-  .album-card .img-wrap { height: 240px; }
-  .img-wrap { min-height: 240px; }
+  .album-header { height: 44vh; min-height: 260px; }
+  .album-header-content { padding: 2.5rem 1.5rem 3rem; }
 }
-
-/* Großes Handy (≤ 640px) */
 @media (max-width: 640px) {
-  .album-header {
-    height: 40vh;
-    min-height: 240px;
-  }
-  .album-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
-  .album-header-content { padding: 2rem 1rem 2.5rem; }
-  .album-section { padding: 1.5rem 0.75rem 3.5rem; }
-  .album-count { font-size: 0.62rem; padding: 0.22rem 0.5rem; }
-  .album-card .img-wrap { height: 200px; }
-  .img-wrap { min-height: 200px; }
-}
-
-/* Kleines Handy (≤ 400px) */
-@media (max-width: 400px) {
-  .album-header { height: 36vh; min-height: 200px; }
-  .back-link { font-size: 0.7rem; }
+  .album-header { height: 38vh; min-height: 220px; }
+  .album-title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+  .album-header-content { padding: 2rem 1rem 2rem; }
+  .back-link { margin-bottom: 0.8rem; }
   .album-section { padding: 1rem 0.5rem 3rem; }
+}
+@media (max-width: 390px) {
+  .album-header { height: 32vh; min-height: 180px; }
 }

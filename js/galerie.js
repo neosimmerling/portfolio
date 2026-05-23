@@ -1,5 +1,5 @@
 // ============================================================
-//  GALERIE JS – Album-Detailseite
+//  GALERIE JS – Album-Detailseite mit JS-Masonry
 // ============================================================
 
 (function () {
@@ -28,51 +28,105 @@
   let currentIndex = 0;
 
   if (!album) {
-    notFound.style.display = "block";
+    if (notFound) notFound.style.display = "block";
     document.title = "Album nicht gefunden";
     return;
   }
 
+  // ── Header befüllen ───────────────────────────────────────
   document.title = `${album.title} – ${data.photographer.name}`;
   document.getElementById("footerName").textContent = data.photographer.name;
   document.getElementById("year").textContent = new Date().getFullYear();
   document.getElementById("albumTitle").textContent    = album.title;
   document.getElementById("albumCategory").textContent = catLabels[album.category] || album.category;
   const dateEl = document.getElementById("albumDate");
-  if (album.date) dateEl.textContent = album.date;
+  if (album.date && dateEl) dateEl.textContent = album.date;
   const countEl = document.getElementById("albumPhotoCount");
-  if (album.photos.length > 0) countEl.textContent = `${album.photos.length} Fotos`;
+  if (countEl && album.photos.length > 0) countEl.textContent = `${album.photos.length} Fotos`;
   document.getElementById("albumHeaderBg").style.backgroundImage = `url('${album.cover}')`;
 
-  // ── Foto-Grid ─────────────────────────────────────────────
+  // ── JS Masonry ────────────────────────────────────────────
+  const GAP = 6;
+
+  function getColumnCount() {
+    const w = window.innerWidth;
+    if (w <= 480) return 2;
+    if (w <= 900) return 3;
+    return 4;
+  }
+
+  function layoutMasonry() {
+    const cols       = getColumnCount();
+    const total      = grid.offsetWidth;
+    const colWidth   = (total - GAP * (cols - 1)) / cols;
+    const colHeights = new Array(cols).fill(0);
+
+    items.forEach(item => {
+      const minH   = Math.min(...colHeights);
+      const colIdx = colHeights.indexOf(minH);
+      const x = colIdx * (colWidth + GAP);
+      const y = colHeights[colIdx];
+
+      item.style.width = colWidth + "px";
+      item.style.left  = x + "px";
+      item.style.top   = y + "px";
+
+      const img = item.querySelector("img");
+      let itemH = colWidth;
+      if (img && img.naturalWidth > 0) {
+        itemH = (img.naturalHeight / img.naturalWidth) * colWidth;
+      }
+
+      colHeights[colIdx] += itemH + GAP;
+      item.classList.add("visible");
+    });
+
+    grid.style.height = Math.max(...colHeights) + "px";
+  }
+
+  // ── Grid aufbauen ─────────────────────────────────────────
   grid.innerHTML = album.photos.map((photo, idx) => `
-    <div class="masonry-item fade-in" data-idx="${idx}"
-         tabindex="0" role="button" aria-label="${photo.title} öffnen">
-      <div class="img-wrap">
-        <img src="${photo.src}" alt="${photo.title}" loading="lazy"
-          oncontextmenu="return false"
-          onload="this.classList.add('img-loaded'); this.nextElementSibling.style.opacity='0';"
-          onerror="this.closest('.masonry-item').classList.add('img-error')"
-        />
-        <div class="img-skeleton"></div>
-      </div>
+    <div class="masonry-item" data-idx="${idx}"
+         tabindex="0" role="button" aria-label="${photo.title || 'Foto'} öffnen">
+      <img src="${photo.src}" alt="${photo.title || ''}"
+        oncontextmenu="return false"
+        onerror="this.closest('.masonry-item').classList.add('img-error')"
+      />
       <div class="item-overlay">
-        <div><p class="item-title">${photo.title}</p></div>
+        <p class="item-title">${photo.title || ''}</p>
       </div>
     </div>
   `).join("");
 
-  grid.querySelectorAll(".masonry-item").forEach(item => {
+  const items = Array.from(grid.querySelectorAll(".masonry-item"));
+  let loadedCount = 0;
+
+  function onImageSettled() {
+    loadedCount++;
+    layoutMasonry();
+  }
+
+  items.forEach(item => {
+    const img = item.querySelector("img");
+    if (!img) { onImageSettled(); return; }
+    if (img.complete) { onImageSettled(); }
+    else {
+      img.addEventListener("load",  onImageSettled, { once: true });
+      img.addEventListener("error", onImageSettled, { once: true });
+    }
+  });
+
+  items.forEach(item => {
     item.addEventListener("click",   () => openLightbox(parseInt(item.dataset.idx)));
     item.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") openLightbox(parseInt(item.dataset.idx));
     });
   });
 
-  requestAnimationFrame(() => {
-    document.querySelectorAll(".masonry-item.fade-in").forEach((el, i) => {
-      setTimeout(() => el.classList.add("visible"), i * 40);
-    });
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layoutMasonry, 100);
   });
 
   // ── Lightbox ──────────────────────────────────────────────
@@ -80,11 +134,11 @@
     currentIndex = idx;
     const photo = album.photos[idx];
     lbImg.classList.remove("img-loaded");
-    lbImg.src   = photo.src;
-    lbImg.alt   = photo.title;
+    lbImg.src    = photo.src;
+    lbImg.alt    = photo.title || "";
     lbImg.onload = () => lbImg.classList.add("img-loaded");
-    lbTitle.textContent   = photo.title;
-    lbCounter.textContent = `${idx + 1} / ${album.photos.length}`;
+    if (lbTitle)   lbTitle.textContent   = photo.title || "";
+    if (lbCounter) lbCounter.textContent = `${idx + 1} / ${album.photos.length}`;
     lightbox.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -117,25 +171,20 @@
     if (e.key === "ArrowRight") nextPhoto();
   });
 
-  // ── Touch / Swipe ─────────────────────────────────────────
-  let touchStartX = 0;
-  let touchStartY = 0;
-
+  // ── Swipe ─────────────────────────────────────────────────
+  let touchStartX = 0, touchStartY = 0;
   lightbox.addEventListener("touchstart", e => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
-
   lightbox.addEventListener("touchend", e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(dx) < 30 && Math.abs(dy) < 30) return; // Tap, kein Swipe
+    if (Math.abs(dx) < 30 && Math.abs(dy) < 30) return;
     if (Math.abs(dx) > Math.abs(dy)) {
-      // Horizontal-Swipe
       if (dx < -50) nextPhoto();
       else if (dx > 50) prevPhoto();
     } else {
-      // Runter-Wischen → schließen
       if (dy > 80) closeLightbox();
     }
   }, { passive: true });
