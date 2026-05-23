@@ -177,8 +177,36 @@
     });
   }
 
+  // ── Wasserzeichen ─────────────────────────────────────────
+  function injectWatermarkStyles() {
+    const name = data.photographer.name;
+    const style = document.createElement("style");
+    style.textContent = `
+      #album-grid .masonry-item::after,
+      #lightbox .lb-img-wrap::after {
+        content: '© ${name}';
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Playfair Display', serif;
+        font-size: 0.72rem;
+        font-style: italic;
+        letter-spacing: 0.18em;
+        color: rgba(255,255,255,0.5);
+        text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+        z-index: 5;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   // ── Init ──────────────────────────────────────────────────
   populatePersonalData();
+  injectWatermarkStyles();
   buildGallery("all");
   observeFadeIns();
 })();
