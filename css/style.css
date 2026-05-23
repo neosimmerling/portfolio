@@ -520,3 +520,122 @@ a.masonry-item, a.album-card {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ============================================================
+   KONTAKTFORMULAR
+   ============================================================ */
+.contact-form {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 600px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232,226,217,0.45);
+}
+.form-group input,
+.form-group textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2px;
+  color: #e8e2d9;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: rgba(200,165,100,0.5);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(232,226,217,0.2);
+}
+.form-submit {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(200,165,100,0.5);
+  color: #c8a564;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.form-submit:hover:not(:disabled) {
+  background: rgba(200,165,100,0.1);
+}
+.form-submit:disabled { opacity: 0.5; cursor: default; }
+.form-success {
+  display: none;
+  margin-top: 1rem;
+  color: #c8a564;
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================
+   FOOTER LINKS
+   ============================================================ */
+.footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-links {
+  display: flex;
+  gap: 1.2rem;
+  margin-left: auto;
+}
+.footer-links a {
+  color: rgba(232,226,217,0.3);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: #c8a564; }
+
+/* ============================================================
+   LIGHTBOX MOBILE
+   ============================================================ */
+@media (max-width: 640px) {
+  .lb-prev, .lb-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    bottom: 4rem;
+    top: auto;
+    transform: none;
+  }
+  .lb-prev { left: 1rem; }
+  .lb-next { right: 1rem; }
+  .lb-close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1rem;
+  }
+  .lb-meta { padding: 0 1rem 1rem; }
+  .form-row { grid-template-columns: 1fr; }
+}

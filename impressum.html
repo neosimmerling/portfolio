@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum – Neo Simmerling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/legal.css" />
+</head>
+<body>
+  <nav class="nav scrolled" id="nav">
+    <a href="index.html" class="nav-logo">Neo Simmerling<span>.</span></a>
+    <div class="nav-links">
+      <a href="index.html#gallery">Galerie</a>
+      <a href="index.html#about">Über mich</a>
+      <a href="index.html#contact">Kontakt</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#gallery" class="mobile-link">Galerie</a>
+    <a href="index.html#about" class="mobile-link">Über mich</a>
+    <a href="index.html#contact" class="mobile-link">Kontakt</a>
+  </div>
+
+  <main class="legal-page">
+    <div class="legal-inner">
+      <a href="index.html" class="back-link">← Zurück</a>
+      <h1>Impressum</h1>
+
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p>
+        Neo Simmerling<br />
+        [Straße und Hausnummer]<br />
+        [PLZ] [Stadt]<br />
+        Deutschland
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        E-Mail: <a href="mailto:neosimmerling@gmail.com">neosimmerling@gmail.com</a>
+      </p>
+
+      <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+      <p>Neo Simmerling (Adresse wie oben)</p>
+
+      <h2>Urheberrecht</h2>
+      <p>
+        Die auf dieser Website veröffentlichten Inhalte und Werke unterliegen dem deutschen Urheberrecht.
+        Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen
+        des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+        Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+      </p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>
+        Als Diensteanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den
+        allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG bin ich als Diensteanbieter jedoch nicht
+        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Neo Simmerling. Alle Bilder urheberrechtlich geschützt.</p>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("burger").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+    document.querySelectorAll(".mobile-link").forEach(l =>
+      l.addEventListener("click", () => document.getElementById("mobileMenu").classList.remove("open"))
+    );
+  </script>
+</body>
+</html>

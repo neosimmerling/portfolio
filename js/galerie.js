@@ -7,12 +7,10 @@
 
   const data = PORTFOLIO_DATA;
 
-  // ── URL-Parameter lesen ───────────────────────────────────
-  const params   = new URLSearchParams(window.location.search);
-  const albumId  = params.get("album");
-  const album    = data.albums.find(a => a.id === albumId);
+  const params  = new URLSearchParams(window.location.search);
+  const albumId = params.get("album");
+  const album   = data.albums.find(a => a.id === albumId);
 
-  // ── DOM refs ──────────────────────────────────────────────
   const navEl      = document.getElementById("nav");
   const burgerEl   = document.getElementById("burger");
   const mobileMenu = document.getElementById("mobileMenu");
@@ -26,47 +24,32 @@
   const lbPrev     = document.getElementById("lbPrev");
   const lbNext     = document.getElementById("lbNext");
 
-  const catLabels = {
-    sport: "Sport", street: "Street",
-    portrait: "Porträt", travel: "Reise"
-  };
-
+  const catLabels = { sport:"Sport", street:"Street", portrait:"Porträt", travel:"Reise" };
   let currentIndex = 0;
 
-  // ── Album nicht gefunden ──────────────────────────────────
   if (!album) {
     notFound.style.display = "block";
     document.title = "Album nicht gefunden";
     return;
   }
 
-  // ── Seite befüllen ────────────────────────────────────────
   document.title = `${album.title} – ${data.photographer.name}`;
   document.getElementById("footerName").textContent = data.photographer.name;
   document.getElementById("year").textContent = new Date().getFullYear();
-
   document.getElementById("albumTitle").textContent    = album.title;
   document.getElementById("albumCategory").textContent = catLabels[album.category] || album.category;
-
   const dateEl = document.getElementById("albumDate");
   if (album.date) dateEl.textContent = album.date;
-
   const countEl = document.getElementById("albumPhotoCount");
   if (album.photos.length > 0) countEl.textContent = `${album.photos.length} Fotos`;
+  document.getElementById("albumHeaderBg").style.backgroundImage = `url('${album.cover}')`;
 
-  // Cover als Header-Hintergrund
-  const headerBg = document.getElementById("albumHeaderBg");
-  headerBg.style.backgroundImage = `url('${album.cover}')`;
-
-  // ── Foto-Grid bauen ───────────────────────────────────────
+  // ── Foto-Grid ─────────────────────────────────────────────
   grid.innerHTML = album.photos.map((photo, idx) => `
     <div class="masonry-item fade-in" data-idx="${idx}"
          tabindex="0" role="button" aria-label="${photo.title} öffnen">
       <div class="img-wrap">
-        <img
-          src="${photo.src}"
-          alt="${photo.title}"
-          loading="lazy"
+        <img src="${photo.src}" alt="${photo.title}" loading="lazy"
           oncontextmenu="return false"
           onload="this.classList.add('img-loaded'); this.nextElementSibling.style.opacity='0';"
           onerror="this.closest('.masonry-item').classList.add('img-error')"
@@ -74,14 +57,11 @@
         <div class="img-skeleton"></div>
       </div>
       <div class="item-overlay">
-        <div>
-          <p class="item-title">${photo.title}</p>
-        </div>
+        <div><p class="item-title">${photo.title}</p></div>
       </div>
     </div>
   `).join("");
 
-  // Klick-Events
   grid.querySelectorAll(".masonry-item").forEach(item => {
     item.addEventListener("click",   () => openLightbox(parseInt(item.dataset.idx)));
     item.addEventListener("keydown", e => {
@@ -89,7 +69,6 @@
     });
   });
 
-  // Fade-in
   requestAnimationFrame(() => {
     document.querySelectorAll(".masonry-item.fade-in").forEach((el, i) => {
       setTimeout(() => el.classList.add("visible"), i * 40);
@@ -101,9 +80,9 @@
     currentIndex = idx;
     const photo = album.photos[idx];
     lbImg.classList.remove("img-loaded");
-    lbImg.src        = photo.src;
-    lbImg.alt        = photo.title;
-    lbImg.onload     = () => lbImg.classList.add("img-loaded");
+    lbImg.src   = photo.src;
+    lbImg.alt   = photo.title;
+    lbImg.onload = () => lbImg.classList.add("img-loaded");
     lbTitle.textContent   = photo.title;
     lbCounter.textContent = `${idx + 1} / ${album.photos.length}`;
     lightbox.classList.add("open");
@@ -127,31 +106,48 @@
   }
 
   lbClose.addEventListener("click", closeLightbox);
-  lbPrev.addEventListener("click", prevPhoto);
-  lbNext.addEventListener("click", nextPhoto);
+  lbPrev.addEventListener("click",  prevPhoto);
+  lbNext.addEventListener("click",  nextPhoto);
   lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
 
   document.addEventListener("keydown", e => {
     if (!lightbox.classList.contains("open")) return;
-    if (e.key === "Escape")      closeLightbox();
-    if (e.key === "ArrowLeft")   prevPhoto();
-    if (e.key === "ArrowRight")  nextPhoto();
+    if (e.key === "Escape")     closeLightbox();
+    if (e.key === "ArrowLeft")  prevPhoto();
+    if (e.key === "ArrowRight") nextPhoto();
   });
+
+  // ── Touch / Swipe ─────────────────────────────────────────
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  lightbox.addEventListener("touchstart", e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  lightbox.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) < 30 && Math.abs(dy) < 30) return; // Tap, kein Swipe
+    if (Math.abs(dx) > Math.abs(dy)) {
+      // Horizontal-Swipe
+      if (dx < -50) nextPhoto();
+      else if (dx > 50) prevPhoto();
+    } else {
+      // Runter-Wischen → schließen
+      if (dy > 80) closeLightbox();
+    }
+  }, { passive: true });
 
   // ── Download-Schutz ───────────────────────────────────────
-  document.addEventListener("contextmenu", e => {
-    if (e.target.tagName === "IMG") e.preventDefault();
-  });
-  document.addEventListener("dragstart", e => {
-    if (e.target.tagName === "IMG") e.preventDefault();
-  });
+  document.addEventListener("contextmenu", e => { if (e.target.tagName === "IMG") e.preventDefault(); });
+  document.addEventListener("dragstart",   e => { if (e.target.tagName === "IMG") e.preventDefault(); });
 
-  // ── Sticky Nav ────────────────────────────────────────────
+  // ── Nav ───────────────────────────────────────────────────
   window.addEventListener("scroll", () => {
     navEl.classList.toggle("scrolled", window.scrollY > 60);
   });
-
-  // ── Mobile Menu ───────────────────────────────────────────
   burgerEl.addEventListener("click", () => mobileMenu.classList.toggle("open"));
   document.querySelectorAll(".mobile-link").forEach(link => {
     link.addEventListener("click", () => mobileMenu.classList.remove("open"));
