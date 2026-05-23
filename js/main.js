@@ -81,6 +81,7 @@
            href="galerie.html?album=${encodeURIComponent(album.id)}"
            aria-label="${album.title} öffnen">
           <div class="img-wrap">
+            ${album.isNew ? `<span class="album-badge-new">Neu</span>` : ""}
             <img
               src="${album.cover}"
               alt="${album.title}"
