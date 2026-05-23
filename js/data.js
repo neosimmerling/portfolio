@@ -84,14 +84,14 @@ const PORTFOLIO_DATA = {
       ]
     },
 
-    // ── Platzhalter-Alben – auf visible: true setzen sobald Fotos da sind ──
+    // ── Platzhalter-Alben – auf visible: false setzen sobald Fotos da sind ──
     {
       id: "gunslingers-details-letzter-sonntag",
       title: "Gunslingers - Details",
       date: "17.05.2026",
       category: "sport",
       cover: "images/test2/21-_MG_0490.jpg",
-      isNew: true,
+      isNew: false,
       photos: [
         { src: "images/test2/1-_MG_0016.jpg", title: "1-_MG_0016" },
         { src: "images/test2/2-_MG_0020.jpg", title: "2-_MG_0020" },
@@ -132,7 +132,7 @@ const PORTFOLIO_DATA = {
     date: "September 2024",
     category: "travel",
     cover: "images/ibiza/22-DSC09585.jpg",
-    isNew: true,
+    isNew: false,
     photos: [
       { src: "images/ibiza/1-DSC09539.jpg", title: "1-DSC09539" },
       { src: "images/ibiza/2-DSC09541.jpg", title: "2-DSC09541" },
@@ -218,7 +218,7 @@ const PORTFOLIO_DATA = {
     date: "April 2024",
     category: "travel",
     cover: "images/frankfurt/11-_MG_4820.jpg",
-    isNew: true,
+    isNew: false,
     photos: [
       { src: "images/frankfurt/1-_MG_4744.jpg", title: "1-_MG_4744" },
       { src: "images/frankfurt/2-_MG_4746.jpg", title: "2-_MG_4746" },
@@ -262,7 +262,7 @@ const PORTFOLIO_DATA = {
     date: "2024",
     category: "travel",
     cover: "images/sky/6-IMG_0473.jpg",
-    isNew: true,
+    isNew: false,
     photos: [
       { src: "images/sky/1-IMG_0455.jpg", title: "1-IMG_0455" },
       { src: "images/sky/2-IMG_0462.jpg", title: "2-IMG_0462" },
