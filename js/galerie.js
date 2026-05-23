@@ -69,6 +69,45 @@
   `;
   document.head.appendChild(wmStyle);
 
+  // ── Ähnliche Alben ────────────────────────────────────────
+  function buildRelated() {
+    const related = data.albums.filter(a =>
+      a.id !== album.id &&
+      a.visible !== false &&
+      a.category === album.category
+    ).slice(0, 3);
+
+    // Wenn keine gleiche Kategorie, nimm andere
+    const fallback = related.length < 3
+      ? data.albums.filter(a =>
+          a.id !== album.id &&
+          a.visible !== false &&
+          !related.find(r => r.id === a.id)
+        ).slice(0, 3 - related.length)
+      : [];
+
+    const all = [...related, ...fallback].slice(0, 3);
+    if (all.length === 0) return;
+
+    const section = document.getElementById("relatedSection");
+    const grid    = document.getElementById("relatedGrid");
+    section.style.display = "block";
+
+    grid.innerHTML = all.map(a => `
+      <a class="related-card" href="galerie.html?album=${encodeURIComponent(a.id)}">
+        <img src="${a.cover}" alt="${a.title}" oncontextmenu="return false" />
+        <div class="related-card-overlay">
+          <div>
+            <p class="related-card-title">${a.title}</p>
+            <p class="related-card-cat">${catLabels[a.category] || a.category}</p>
+          </div>
+        </div>
+      </a>
+    `).join("");
+  }
+
+  buildRelated();
+
   // ── JS Masonry ────────────────────────────────────────────
   const GAP = 6;
 

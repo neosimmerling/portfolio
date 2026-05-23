@@ -118,6 +118,68 @@
 .lb-img { opacity: 0; filter: blur(12px); transition: opacity 0.45s ease, filter 0.45s ease; }
 .lb-img.img-loaded { opacity: 1; filter: blur(0); }
 
+/* ── Ähnliche Alben ──────────────────────────────────────── */
+.related-section {
+  padding: 4rem 5vw 6rem;
+  background: #0e0e0e;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.related-inner { max-width: 1200px; margin: 0 auto; }
+.related-inner .section-eyebrow { margin-bottom: 0.4rem; }
+.related-inner .section-title { margin-bottom: 2rem; }
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.related-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.related-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+.related-card:hover img { transform: scale(1.04); }
+.related-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex; align-items: flex-end;
+  padding: 1rem;
+}
+.related-card:hover .related-card-overlay { opacity: 1; }
+.related-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: #f0ebe3;
+}
+.related-card-cat {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c8a564;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 700px) {
+  .related-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .related-grid { grid-template-columns: 1fr; }
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 1100px) {
   .album-section { padding: 2rem 1.25rem 4rem; }
