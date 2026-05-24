@@ -45,31 +45,47 @@ Dann `http://localhost:8000` öffnen.
 
 ---
 
-## neues Album hinzufügen:
+## Neues Album hinzufügen
 
-### Schritt 1:
-- Ordner anlegen (Bspw. in `images/football-suhl-2025/`)
-- Fotos reinkopieren
+### Schritt 1 – Bilder ablegen
+Ordner anlegen und Fotos reinkopieren, z.B. `images/football-suhl-2025/`
 
-### Schritt 2:
-- neuer Eintrag in `js/data.js` in Liste `albums`:
+### Schritt 2 – Eintrag in data.js
+Neuen Block in `js/data.js` in der Liste `albums` ergänzen:
 
 ```js
-    {
-        id: "football-jena-2025",        // → URL: galerie.html?album=football-jena-2025
-        title: "FC Jena vs. Bayern",
-        date: "12.04.2025",              // optional
-        category: "sport",               // sport | street | portrait | travel
-        cover: "images/football-jena-2025/cover.jpg",  // Cover für die Hauptgalerie
-        photos: [
-            { src: "images/football-jena-2025/foto1.jpg", title: "Tor im letzten Moment" },
-            { src: "images/football-jena-2025/foto2.jpg", title: "Zweikampf" },
-            // weitere Fotos...
-        ]
-    }
+{
+    id: "football-suhl-2025",        // → URL: /galerie/football-suhl-2025/
+    title: "FC Suhl vs. Jena",
+    date: "12.04.2025",              // optional
+    category: "sport",               // sport | street | portrait | travel
+    isNew: true,                     // optional: zeigt "Neu"-Badge
+    cover: "images/football-suhl-2025/cover.jpg",
+    photos: [
+        { src: "images/football-suhl-2025/foto1.jpg", title: "Tor im letzten Moment" },
+        { src: "images/football-suhl-2025/foto2.jpg", title: "Zweikampf" },
+    ]
+}
 ```
-- Cover erscheint automatisch auf `index.html`, Klick führt auf Detailseite
 
+### Schritt 3 – Albumseite generieren
+Im Portfolio-Ordner ausführen:
+
+```bash
+python generate-albums.py
+```
+
+Das Script liest alle Alben aus `data.js` und erstellt automatisch `galerie/<album-id>/index.html`.
+Alben mit `visible: false` werden übersprungen.
+
+### Schritt 4 – Pushen
+```bash
+git add .
+git commit -m "Album football-suhl-2025 hinzugefügt"
+git push
+```
+
+Das Cover erscheint automatisch auf der Startseite, der Link führt auf die generierte Detailseite.
 
 ---
 
