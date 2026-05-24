@@ -20,15 +20,18 @@
 
     document.title = `Portfolio – ${p.name} | Fotograf`;
     document.querySelectorAll("#footerName").forEach(el => el.textContent = p.name);
-    document.getElementById("aboutName").textContent = p.name;
+    document.getElementById("aboutName").textContent    = p.name;
+    const cardName = document.getElementById("aboutCardName");
+    if (cardName) cardName.textContent = p.name;
 
     const bioEl = document.getElementById("aboutBio");
     bioEl.innerHTML = p.bio.map(t => `<p>${t}</p>`).join("");
 
+    // Stats mit Zähler-Animation
     const statsEl = document.getElementById("aboutStats");
     statsEl.innerHTML = p.stats.map(s =>
       `<div class="stat">
-        <span class="stat-num">${s.num}</span>
+        <span class="stat-num" data-target="${s.num}">${s.num}</span>
         <span class="stat-label">${s.label}</span>
       </div>`
     ).join("");
@@ -42,6 +45,24 @@
       img.src = p.portrait;
       img.style.display = "block";
       if (fallback) fallback.style.display = "none";
+    }
+
+    // Gear-Liste
+    if (p.gear) {
+      const gearEl = document.getElementById("gearList");
+      if (gearEl) {
+        gearEl.innerHTML = p.gear.map(g => `
+          <div class="gear-category">
+            <div class="gear-category__header">
+              <span class="gear-icon">${g.icon}</span>
+              <span class="gear-category__name">${g.category}</span>
+            </div>
+            <ul class="gear-items">
+              ${g.items.map(item => `<li>${item}</li>`).join("")}
+            </ul>
+          </div>
+        `).join("");
+      }
     }
 
     const mailEl = document.getElementById("contactMailto");

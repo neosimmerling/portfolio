@@ -18,6 +18,13 @@ const PORTFOLIO_DATA = {
       { num: "viele", label: "Kategorien" }
     ],
     tags: ["Lightroom Mobile", "Canon", "Sport", "Street", "Porträt", "Reise", "Events"],
+    gear: [
+      { icon: "📷", category: "Kamera",   items: ["Canon EOS R50"] },
+      { icon: "🔭", category: "Objektive", items: ["Canon RF 18-45mm f/4.5-6.3", "Canon EF 70-200mm f/4L"] },
+      { icon: "💡", category: "Licht",     items: ["Godox V1 Speedlite", "Reflektor 5-in-1"] },
+      { icon: "🎒", category: "Zubehör",   items: ["Peak Design Everyday Backpack", "DJI Mini 3 Pro"] },
+      { icon: "🖥️", category: "Software",  items: ["Lightroom Mobile", "Adobe Photoshop"] }
+    ],
     portrait: "images/about/aboutme.jpg",
     email: "neosimmerling@gmail.com",
     socials: [
