@@ -229,6 +229,21 @@
     }
   }, { passive: true });
 
+  // ── Seiten-Übergang ───────────────────────────────────────
+  const pageTransition = document.getElementById("pageTransition");
+  window.addEventListener("load", () => {
+    requestAnimationFrame(() => pageTransition.classList.remove("fade-out"));
+  });
+  document.addEventListener("click", e => {
+    const link = e.target.closest("a[href]");
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto")) return;
+    e.preventDefault();
+    pageTransition.classList.add("fade-out");
+    setTimeout(() => { window.location.href = href; }, 360);
+  });
+
   // ── Download-Schutz ───────────────────────────────────────
   document.addEventListener("contextmenu", e => { if (e.target.tagName === "IMG") e.preventDefault(); });
   document.addEventListener("dragstart",   e => { if (e.target.tagName === "IMG") e.preventDefault(); });
