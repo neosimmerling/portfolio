@@ -7,12 +7,26 @@
 
   const data = PORTFOLIO_DATA;
 
-  // ── DOM refs ──────────────────────────────────────────────
   const navEl       = document.getElementById("nav");
   const burgerEl    = document.getElementById("burger");
   const mobileMenu  = document.getElementById("mobileMenu");
   const galleryGrid = document.getElementById("gallery-grid");
   const filterBtns  = document.querySelectorAll(".filter-btn");
+
+  // ── Seiten-Übergang ───────────────────────────────────────
+  const pageTransition = document.getElementById("pageTransition");
+  requestAnimationFrame(() => {
+    if (pageTransition) pageTransition.classList.remove("active");
+  });
+  document.addEventListener("click", e => {
+    const link = e.target.closest("a[href]");
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto")) return;
+    e.preventDefault();
+    if (pageTransition) pageTransition.classList.add("active");
+    setTimeout(() => { window.location.href = href; }, 360);
+  });
 
   // ── Persönliche Daten befüllen ────────────────────────────
   function populatePersonalData() {
@@ -66,19 +80,18 @@
   };
 
   function buildGallery(filter) {
-    // Alben mit visible: false werden ausgeblendet
     const visible = data.albums.filter(a => a.visible !== false);
     const albums = filter === "all"
       ? visible
       : visible.filter(a => a.category === filter);
 
-    galleryGrid.innerHTML = albums.map((album, idx) => {
+    galleryGrid.innerHTML = albums.map((album) => {
       const catLabel   = catLabels[album.category] || album.category;
       const dateStr    = album.date ? `<p class="item-date">${album.date}</p>` : "";
       const photoCount = album.photos.length;
       return `
         <a class="masonry-item album-card fade-in"
-           href="galerie.html?album=${encodeURIComponent(album.id)}"
+           href="galerie/${album.id}/"
            aria-label="${album.title} öffnen">
           <div class="img-wrap">
             ${album.isNew ? `<span class="album-badge-new">Neu</span>` : ""}
@@ -103,16 +116,14 @@
       `;
     }).join("");
 
-    // Farben per JS setzen – verhindert lila Browser-Linkfarbe in <a>-Tags
     galleryGrid.querySelectorAll(".album-card").forEach(card => {
       card.querySelectorAll(".item-title, .item-cat, .item-date, .album-count").forEach(el => {
-        if (el.classList.contains("item-title")) el.style.color = "#f0ebe3";
-        if (el.classList.contains("item-cat"))   el.style.color = "#c8a564";
-        if (el.classList.contains("item-date"))  el.style.color = "rgba(232,226,217,0.45)";
+        if (el.classList.contains("item-title"))  el.style.color = "#f0ebe3";
+        if (el.classList.contains("item-cat"))    el.style.color = "#c8a564";
+        if (el.classList.contains("item-date"))   el.style.color = "rgba(232,226,217,0.45)";
         if (el.classList.contains("album-count")) el.style.color = "#c8a564";
       });
 
-      // Hover: Badge einblenden
       const badge = card.querySelector(".album-count");
       if (!badge) return;
       card.addEventListener("mouseenter", () => { badge.style.opacity = "1"; badge.style.transform = "translateY(0)"; });
@@ -177,21 +188,6 @@
       observer.observe(el);
     });
   }
-
-  // ── Seiten-Übergang ───────────────────────────────────────
-  const pageTransition = document.getElementById("pageTransition");
-  window.addEventListener("load", () => {
-    requestAnimationFrame(() => pageTransition.classList.remove("fade-out"));
-  });
-  document.addEventListener("click", e => {
-    const link = e.target.closest("a[href]");
-    if (!link) return;
-    const href = link.getAttribute("href");
-    if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto")) return;
-    e.preventDefault();
-    pageTransition.classList.add("fade-out");
-    setTimeout(() => { window.location.href = href; }, 360);
-  });
 
   // ── Init ──────────────────────────────────────────────────
   populatePersonalData();

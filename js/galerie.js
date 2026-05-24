@@ -7,9 +7,12 @@
 
   const data = PORTFOLIO_DATA;
 
-  const params  = new URLSearchParams(window.location.search);
-  const albumId = params.get("album");
-  const album   = data.albums.find(a => a.id === albumId);
+  // Album-ID: erst aus data-album am <body> (generierte Seiten),
+  // dann aus URL-Parameter (galerie.html?album=ID)
+  const bodyAlbumId = document.body.dataset.album;
+  const params      = new URLSearchParams(window.location.search);
+  const albumId     = bodyAlbumId || params.get("album");
+  const album       = data.albums.find(a => a.id === albumId);
 
   const navEl      = document.getElementById("nav");
   const burgerEl   = document.getElementById("burger");
@@ -27,6 +30,26 @@
   const catLabels = { sport:"Sport", street:"Street", portrait:"Porträt", travel:"Reise" };
   let currentIndex = 0;
 
+  // Pfad-Präfix: generierte Seiten liegen unter galerie/<id>/ → Bilder sind ../../images/...
+  // galerie.html liegt im Root → kein Präfix nötig
+  const pathPrefix = bodyAlbumId ? "../../" : "";
+  function p(src) { return src ? pathPrefix + src : src; }
+
+  // ── Seiten-Übergang ───────────────────────────────────────
+  const pageTransition = document.getElementById("pageTransition");
+  requestAnimationFrame(() => {
+    if (pageTransition) pageTransition.classList.remove("active");
+  });
+  document.addEventListener("click", e => {
+    const link = e.target.closest("a[href]");
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto")) return;
+    e.preventDefault();
+    if (pageTransition) pageTransition.classList.add("active");
+    setTimeout(() => { window.location.href = href; }, 360);
+  });
+
   if (!album) {
     if (notFound) notFound.style.display = "block";
     document.title = "Album nicht gefunden";
@@ -43,8 +66,31 @@
   if (album.date && dateEl) dateEl.textContent = album.date;
   const countEl = document.getElementById("albumPhotoCount");
   if (countEl && album.photos.length > 0) countEl.textContent = `${album.photos.length} Fotos`;
-  document.getElementById("albumHeaderBg").style.backgroundImage = `url('${album.cover}')`;
+  document.getElementById("albumHeaderBg").style.backgroundImage = `url('${p(album.cover)}')`;
 
+  // ── Wasserzeichen ─────────────────────────────────────────
+  const wmStyle = document.createElement("style");
+  wmStyle.textContent = `
+    #album-grid .masonry-item::after,
+    .lb-img-wrap::after {
+      content: '© ${data.photographer.name}';
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.5);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+      z-index: 5;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+  `;
+  document.head.appendChild(wmStyle);
 
   // ── Ähnliche Alben ────────────────────────────────────────
   function buildRelated() {
@@ -54,7 +100,6 @@
       a.category === album.category
     ).slice(0, 3);
 
-    // Wenn keine gleiche Kategorie, nimm andere
     const fallback = related.length < 3
       ? data.albums.filter(a =>
           a.id !== album.id &&
@@ -67,12 +112,12 @@
     if (all.length === 0) return;
 
     const section = document.getElementById("relatedSection");
-    const grid    = document.getElementById("relatedGrid");
+    const relGrid = document.getElementById("relatedGrid");
     section.style.display = "block";
 
-    grid.innerHTML = all.map(a => `
-      <a class="related-card" href="galerie.html?album=${encodeURIComponent(a.id)}">
-        <img src="${a.cover}" alt="${a.title}" oncontextmenu="return false" />
+    relGrid.innerHTML = all.map(a => `
+      <a class="related-card" href="../${encodeURIComponent(a.id)}/">
+        <img src="${p(a.cover)}" alt="${a.title}" oncontextmenu="return false" />
         <div class="related-card-overlay">
           <div>
             <p class="related-card-title">${a.title}</p>
@@ -128,7 +173,7 @@
   grid.innerHTML = album.photos.map((photo, idx) => `
     <div class="masonry-item" data-idx="${idx}"
          tabindex="0" role="button" aria-label="${photo.title || 'Foto'} öffnen">
-      <img src="${photo.src}" alt="${photo.title || ''}"
+      <img src="${p(photo.src)}" alt="${photo.title || ''}"
         oncontextmenu="return false"
         onerror="this.closest('.masonry-item').classList.add('img-error')"
       />
@@ -174,7 +219,7 @@
     currentIndex = idx;
     const photo = album.photos[idx];
     lbImg.classList.remove("img-loaded");
-    lbImg.src    = photo.src;
+    lbImg.src    = p(photo.src);
     lbImg.alt    = photo.title || "";
     lbImg.onload = () => lbImg.classList.add("img-loaded");
     if (lbTitle)   lbTitle.textContent   = photo.title || "";
@@ -228,21 +273,6 @@
       if (dy > 80) closeLightbox();
     }
   }, { passive: true });
-
-  // ── Seiten-Übergang ───────────────────────────────────────
-  const pageTransition = document.getElementById("pageTransition");
-  window.addEventListener("load", () => {
-    requestAnimationFrame(() => pageTransition.classList.remove("fade-out"));
-  });
-  document.addEventListener("click", e => {
-    const link = e.target.closest("a[href]");
-    if (!link) return;
-    const href = link.getAttribute("href");
-    if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto")) return;
-    e.preventDefault();
-    pageTransition.classList.add("fade-out");
-    setTimeout(() => { window.location.href = href; }, 360);
-  });
 
   // ── Download-Schutz ───────────────────────────────────────
   document.addEventListener("contextmenu", e => { if (e.target.tagName === "IMG") e.preventDefault(); });

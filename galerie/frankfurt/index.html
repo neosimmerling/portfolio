@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Album – Neo Simmerling</title>
+  <meta name="description" content="Fotogalerie von Neo Simmerling" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/galerie.css" />
+</head>
+<body data-album="frankfurt">
+  <div class="page-transition fade-out" id="pageTransition"></div>
+
+  <nav class="nav" id="nav">
+    <a href="../../index.html" class="nav-logo">Neo Simmerling<span>.</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#gallery">Galerie</a>
+      <a href="../../index.html#about">Über mich</a>
+      <a href="../../index.html#contact">Kontakt</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html#gallery" class="mobile-link">Galerie</a>
+    <a href="../../index.html#about" class="mobile-link">Über mich</a>
+    <a href="../../index.html#contact" class="mobile-link">Kontakt</a>
+  </div>
+
+  <header class="album-header" id="albumHeader">
+    <div class="album-header-bg" id="albumHeaderBg"></div>
+    <div class="album-header-overlay"></div>
+    <div class="album-header-content">
+      <a href="../../index.html#gallery" class="back-link">← Zurück zur Galerie</a>
+      <p class="section-eyebrow" id="albumCategory">Kategorie</p>
+      <h1 class="album-title" id="albumTitle">Album</h1>
+      <div class="album-header-meta">
+        <p class="album-date" id="albumDate"></p>
+        <p class="album-photo-count" id="albumPhotoCount"></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="album-section">
+    <div class="masonry" id="album-grid"></div>
+    <div class="album-not-found" id="albumNotFound" style="display:none">
+      <p>Album nicht gefunden.</p>
+      <a href="../../index.html" class="btn-hero" style="margin-top:1.5rem;display:inline-block">Zur Startseite</a>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bildvorschau">
+    <button class="lb-close" id="lbClose" aria-label="Schließen">&#x2715;</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Vorheriges Bild">&#8592;</button>
+    <button class="lb-next"  id="lbNext"  aria-label="Nächstes Bild">&#8594;</button>
+    <div class="lb-img-wrap">
+      <img class="lb-img" id="lbImg" src="" alt="" draggable="false" />
+    </div>
+    <div class="lb-meta">
+      <p class="lb-title"   id="lbTitle"></p>
+      <p class="lb-counter" id="lbCounter"></p>
+    </div>
+  </div>
+
+  <section class="related-section" id="relatedSection" style="display:none">
+    <div class="related-inner">
+      <p class="section-eyebrow">Mehr entdecken</p>
+      <h2 class="section-title">Ähnliche Alben</h2>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> <span id="footerName">Neo Simmerling</span>. Alle Bilder urheberrechtlich geschützt.</p>
+    <div class="footer-links">
+      <a href="../../impressum.html">Impressum</a>
+      <a href="../../datenschutz.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <script src="../../js/data.js"></script>
+  <script src="../../js/galerie.js"></script>
+</body>
+</html>

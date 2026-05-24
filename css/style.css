@@ -359,5 +359,4 @@ a.masonry-item, a.album-card { pointer-events: auto; }
   opacity: 0;
   transition: opacity 0.35s ease;
 }
-.page-transition.fade-out { opacity: 1; pointer-events: all; }
-.page-transition.fade-in  { opacity: 0; }
+.page-transition.active { opacity: 1; pointer-events: all; }
