@@ -45,29 +45,6 @@
   if (countEl && album.photos.length > 0) countEl.textContent = `${album.photos.length} Fotos`;
   document.getElementById("albumHeaderBg").style.backgroundImage = `url('${album.cover}')`;
 
-  // Wasserzeichen
-  const wmStyle = document.createElement("style");
-  wmStyle.textContent = `
-    #album-grid .masonry-item::after,
-    .lb-img-wrap::after {
-      content: '© ${data.photographer.name}';
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Playfair Display', serif;
-      font-size: 0.72rem;
-      font-style: italic;
-      letter-spacing: 0.18em;
-      color: rgba(255,255,255,0.5);
-      text-shadow: 0 1px 6px rgba(0,0,0,0.9);
-      z-index: 5;
-      pointer-events: none;
-      user-select: none;
-      white-space: nowrap;
-    }
-  `;
-  document.head.appendChild(wmStyle);
 
   // ── Ähnliche Alben ────────────────────────────────────────
   function buildRelated() {
