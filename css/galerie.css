@@ -78,7 +78,7 @@
   padding: 1rem;
 }
 .masonry-item:hover .item-overlay { opacity: 1; }
-@media (hover: none) { .masonry-item .item-overlay { opacity: 1; } }
+
 
 .item-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #f0ebe3; }
 
