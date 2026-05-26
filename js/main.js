@@ -18,6 +18,11 @@
   requestAnimationFrame(() => {
     if (pageTransition) pageTransition.classList.remove("active");
   });
+  window.addEventListener("pageshow", e => {
+    if (e.persisted && pageTransition) {
+      pageTransition.classList.remove("active");
+    }
+  });
   document.addEventListener("click", e => {
     const link = e.target.closest("a[href]");
     if (!link) return;
