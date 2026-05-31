@@ -4,31 +4,38 @@ generate-albums.py
 ==================
 Ausführen: python generate-albums.py
 
-Erstellt für jedes Album in js/data.js automatisch:
+Erstellt für jedes sichtbare Album in js/data.js:
   galerie/<album-id>/index.html
-
-→ Aufrufbar als: deine-seite.de/galerie/football-jena-2025/
 """
 
 import os
 import re
 
-# ── data.js einlesen ───────────────────────────────────────
 with open("js/data.js", encoding="utf-8") as f:
     raw = f.read()
 
-# ── Album-IDs extrahieren ──────────────────────────────────
-# Alle id: "..." finden, visible: false überspringen
+# Alben-Block zwischen "albums: [" und dem abschließenden "]" extrahieren
+albums_match = re.search(r'albums\s*:\s*\[(.+)\]\s*\}?\s*;?\s*$', raw, re.DOTALL)
+if not albums_match:
+    print("Fehler: albums-Array nicht gefunden.")
+    exit(1)
+
+albums_raw = albums_match.group(1)
+
+# Alle id: "..." Einträge finden
+ids_with_pos = [(m.start(), m.group(1)) for m in re.finditer(r'id\s*:\s*["\']([^"\']+)["\']', albums_raw)]
+
+# Für jede ID prüfen ob visible: false in der Nähe steht (innerhalb ±300 Zeichen)
 albums = []
-for m in re.finditer(r'id:\s*["\']([^"\']+)["\']', raw):
-    album_id = m.group(1)
-    snippet = raw[m.start():m.start() + 400]
-    if 'visible' in snippet and 'false' in snippet:
+for pos, aid in ids_with_pos:
+    surrounding = albums_raw[max(0, pos-50):pos+500]
+    if 'visible' in surrounding and 'false' in surrounding:
+        print(f"  (übersprungen: {aid} – visible: false)")
         continue
-    albums.append(album_id)
+    albums.append(aid)
 
 if not albums:
-    print("Keine Alben gefunden. Prüfe js/data.js.")
+    print("Keine sichtbaren Alben gefunden.")
     exit(1)
 
 depth = "../../"
@@ -112,10 +119,25 @@ def make_html(album_id):
   </section>
 
   <footer class="footer">
-    <p>&copy; <span id="year"></span> <span id="footerName">Neo Simmerling</span>. Alle Bilder urheberrechtlich geschützt.</p>
-    <div class="footer-links">
-      <a href="{depth}impressum.html">Impressum</a>
-      <a href="{depth}datenschutz.html">Datenschutz</a>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Neo Simmerling<span>.</span></span>
+        <p class="footer-tagline">Fotograf & Bildgestalter</p>
+      </div>
+      <div class="footer-nav">
+        <p class="footer-nav__label">Navigation</p>
+        <a href="{depth}index.html#gallery">Galerie</a>
+        <a href="{depth}index.html#about">Über mich</a>
+        <a href="{depth}index.html#contact">Kontakt</a>
+      </div>
+      <div class="footer-nav">
+        <p class="footer-nav__label">Rechtliches</p>
+        <a href="{depth}impressum.html">Impressum</a>
+        <a href="{depth}datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> <span id="footerName">Neo Simmerling</span>. Alle Bilder urheberrechtlich geschützt.</p>
     </div>
   </footer>
 
@@ -124,7 +146,6 @@ def make_html(album_id):
 </body>
 </html>"""
 
-# ── Seiten generieren ──────────────────────────────────────
 os.makedirs("galerie", exist_ok=True)
 
 for album_id in albums:

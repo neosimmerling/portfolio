@@ -255,6 +255,20 @@
     }
   }, { passive: true });
 
+  // ── Scroll-to-Top ─────────────────────────────────────────
+  const scrollBtn = document.createElement("button");
+  scrollBtn.className = "scroll-top";
+  scrollBtn.setAttribute("aria-label", "Nach oben");
+  scrollBtn.innerHTML = "↑";
+  document.body.appendChild(scrollBtn);
+
+  window.addEventListener("scroll", () => {
+    scrollBtn.classList.toggle("visible", window.scrollY > 600);
+  });
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   // ── Download-Schutz ───────────────────────────────────────
   document.addEventListener("contextmenu", e => { if (e.target.tagName === "IMG") e.preventDefault(); });
   document.addEventListener("dragstart",   e => { if (e.target.tagName === "IMG") e.preventDefault(); });

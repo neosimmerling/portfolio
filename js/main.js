@@ -40,8 +40,6 @@
     document.title = `Portfolio – ${p.name} | Fotograf`;
     document.querySelectorAll("#footerName").forEach(el => el.textContent = p.name);
     document.getElementById("aboutName").textContent = p.name;
-    const cardName = document.getElementById("aboutCardName");
-    if (cardName) cardName.textContent = p.name;
 
     const bioEl = document.getElementById("aboutBio");
     bioEl.innerHTML = p.bio.map(t => `<p>${t}</p>`).join("");
@@ -66,16 +64,33 @@
     }
 
     const mailEl = document.getElementById("contactMailto");
-    mailEl.href = `mailto:${p.email}`;
-    mailEl.textContent = p.email;
+    if (mailEl) {
+      mailEl.href = `mailto:${p.email}`;
+    }
+    const mailVal = document.getElementById("contactMailValue");
+    if (mailVal) mailVal.textContent = p.email;
 
-    document.getElementById("contactSub").textContent =
-      "Interesse an einer Zusammenarbeit oder einem Projekt? Schreib mir gerne.";
+    const subEl = document.getElementById("contactSub");
+    if (subEl) subEl.textContent = "Interesse an einer Zusammenarbeit oder einem Projekt? Schreib mir gerne.";
 
     const socialsEl = document.getElementById("contactSocials");
-    socialsEl.innerHTML = p.socials.map(s =>
-      `<a href="${s.url}" target="_blank" rel="noopener" class="social-link">${s.label}</a>`
-    ).join("");
+    if (socialsEl) {
+      socialsEl.innerHTML = p.socials.map(s =>
+        `<a href="${s.url}" target="_blank" rel="noopener" class="contact-card">
+          <span class="contact-card__icon">${s.label === "Instagram" ? "📷" : "💼"}</span>
+          <span class="contact-card__label">${s.label}</span>
+          <span class="contact-card__value">${s.url.replace("https://", "")}</span>
+        </a>`
+      ).join("");
+    }
+
+    // Footer Socials
+    const footerSocials = document.getElementById("footerSocials");
+    if (footerSocials) {
+      footerSocials.innerHTML = p.socials.map(s =>
+        `<a href="${s.url}" target="_blank" rel="noopener" class="footer-social">${s.label}</a>`
+      ).join("");
+    }
 
     document.getElementById("year").textContent = new Date().getFullYear();
   }
@@ -166,9 +181,21 @@
     }
   });
 
-  // ── Sticky Nav ────────────────────────────────────────────
+  // ── Sticky Nav + Active Link ──────────────────────────────
+  const sections   = ["gallery", "about", "contact"].map(id => document.getElementById(id)).filter(Boolean);
+  const navLinks   = document.querySelectorAll(".nav-links a");
+
   window.addEventListener("scroll", () => {
     navEl.classList.toggle("scrolled", window.scrollY > 60);
+
+    // Active-Link: welche Section ist gerade im Viewport?
+    let current = "";
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle("active", a.getAttribute("href") === `#${current}`);
+    });
   });
 
   // ── Mobile Menu ───────────────────────────────────────────
