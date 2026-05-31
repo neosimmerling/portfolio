@@ -137,15 +137,24 @@
     <div class="contact-inner">
       <p class="section-eyebrow">Kontakt</p>
       <h2 class="section-title">Lass uns reden.</h2>
-      <p class="contact-sub" id="contactSub">Interesse an einer Zusammenarbeit? Schreib mir gerne.</p>
+      <p class="contact-sub" id="contactSub">Interesse an einer Zusammenarbeit oder einem Projekt? Schreib mir gerne.</p>
 
-      <div class="contact-cards">
-        <a class="contact-card" id="contactMailto" href="mailto:neosimmerling@gmail.com">
-          <span class="contact-card__icon">✉</span>
-          <span class="contact-card__label">E-Mail</span>
-          <span class="contact-card__value" id="contactMailValue">neosimmerling@gmail.com</span>
+      <div class="contact-layout">
+
+        <!-- Hauptkarte: E-Mail -->
+        <a class="contact-main" id="contactMailto" href="mailto:neosimmerling@gmail.com">
+          <div class="contact-main__bg"></div>
+          <div class="contact-main__content">
+            <span class="contact-main__icon">✉</span>
+            <span class="contact-main__label">E-Mail</span>
+            <span class="contact-main__value" id="contactMailValue">neosimmerling@gmail.com</span>
+            <span class="contact-main__cta">Nachricht schreiben →</span>
+          </div>
         </a>
-        <div class="contact-socials-cards" id="contactSocials"></div>
+
+        <!-- Nebenkarten: Socials -->
+        <div class="contact-side" id="contactSocials"></div>
+
       </div>
     </div>
   </section>

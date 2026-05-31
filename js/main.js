@@ -75,16 +75,19 @@
     const subEl = document.getElementById("contactSub");
     if (subEl) subEl.textContent = "Interesse an einer Zusammenarbeit oder einem Projekt? Schreib mir gerne.";
 
-    const socialsEl = document.getElementById("contactSocials");
-    if (socialsEl) {
-      socialsEl.innerHTML = p.socials.map(s =>
-        `<a href="${s.url}" target="_blank" rel="noopener" class="contact-card">
-          <span class="contact-card__icon">${s.label === "Instagram" ? "📷" : "💼"}</span>
-          <span class="contact-card__label">${s.label}</span>
-          <span class="contact-card__value">${s.url.replace("https://", "")}</span>
-        </a>`
-      ).join("");
-    }
+    document.getElementById("contactSocials").innerHTML = p.socials.map(s => {
+      const icons = { Instagram: "📷", LinkedIn: "💼", Twitter: "🐦", Facebook: "📘" };
+      const icon = icons[s.label] || "🔗";
+      const value = s.url.replace(/^https?:\/\/(www\.)?/, "");
+      return `
+        <a href="${s.url}" target="_blank" rel="noopener" class="contact-card">
+          <span class="contact-card__icon">${icon}</span>
+          <div class="contact-card__text">
+            <span class="contact-card__label">${s.label}</span>
+            <span class="contact-card__value">${value}</span>
+          </div>
+        </a>`;
+    }).join("");
 
     // Footer Socials
     const footerSocials = document.getElementById("footerSocials");
