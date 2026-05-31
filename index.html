@@ -92,44 +92,43 @@
 
   <!-- ABOUT -->
   <section class="about-section" id="about">
-    <div class="about-img-wrap">
-      <!-- Ersetze src mit deinem Porträt-Foto -->
-      <div class="about-img-placeholder" id="aboutImgWrap">
-        <img src="" alt="Porträt" class="about-img" id="aboutImg" style="display:none" />
-        <div class="about-img-fallback" id="aboutFallback">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="38" r="20" fill="rgba(255,255,255,0.15)"/>
-            <ellipse cx="50" cy="85" rx="35" ry="25" fill="rgba(255,255,255,0.1)"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class="about-content">
+    <div class="about-header">
       <p class="section-eyebrow">Über mich</p>
-      <h2 class="section-title" id="aboutName">Dein Name</h2>
-      <div class="about-bio" id="aboutBio">
-        <p>Ich bin Fotograf mit Leidenschaft für das Besondere im Alltäglichen. Mit meiner Kamera halte ich Momente fest – von der Dynamik des Sports bis zur Stille der Straße.</p>
-        <p>Seit Jahren begleite ich Sportevents, streife durch Städte und schaffe Porträts, die echte Persönlichkeiten zeigen. Jedes Bild erzählt eine Geschichte.</p>
+      <h2 class="section-title" id="aboutName">Neo Simmerling</h2>
+    </div>
+
+    <div class="about-grid">
+
+      <!-- Karte 1: Foto -->
+      <div class="about-card about-card--photo">
+        <div class="about-img-placeholder" id="aboutImgWrap">
+          <img src="" alt="Porträt" class="about-img" id="aboutImg" style="display:none" />
+          <div class="about-img-fallback" id="aboutFallback">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="38" r="20" fill="rgba(255,255,255,0.15)"/>
+              <ellipse cx="50" cy="85" rx="35" ry="25" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="about-card__photo-label">
+          <span class="about-card__name" id="aboutCardName">Neo Simmerling</span>
+          <span class="about-card__role">Fotograf</span>
+        </div>
       </div>
 
-      <div class="about-stats" id="aboutStats">
-        <div class="stat">
-          <span class="stat-num" id="stat1Num">5+</span>
-          <span class="stat-label" id="stat1Label">Jahre Erfahrung</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num" id="stat2Num">500+</span>
-          <span class="stat-label" id="stat2Label">Projekte</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num" id="stat3Num">4</span>
-          <span class="stat-label" id="stat3Label">Kategorien</span>
-        </div>
+      <!-- Karte 2: Bio -->
+      <div class="about-card about-card--bio">
+        <div class="about-card__eyebrow">Über mich</div>
+        <div class="about-bio" id="aboutBio"></div>
+        <div class="about-tags" id="aboutTagsWrap"></div>
       </div>
 
-      <div class="about-tags" id="aboutTagsWrap">
-        <!-- Tags werden via JS geladen -->
+      <!-- Karte 3: Stats -->
+      <div class="about-card about-card--stats">
+        <div class="about-card__eyebrow">Auf einen Blick</div>
+        <div class="about-stats" id="aboutStats"></div>
       </div>
+
     </div>
   </section>
 
