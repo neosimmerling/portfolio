@@ -40,6 +40,8 @@
     document.title = `Portfolio – ${p.name} | Fotograf`;
     document.querySelectorAll("#footerName").forEach(el => el.textContent = p.name);
     document.getElementById("aboutName").textContent = p.name;
+    const cardName = document.getElementById("aboutCardName");
+    if (cardName) cardName.textContent = p.name;
 
     const bioEl = document.getElementById("aboutBio");
     bioEl.innerHTML = p.bio.map(t => `<p>${t}</p>`).join("");
