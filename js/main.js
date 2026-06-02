@@ -80,12 +80,9 @@
       const icon = icons[s.label] || "🔗";
       const value = s.url.replace(/^https?:\/\/(www\.)?/, "");
       return `
-        <a href="${s.url}" target="_blank" rel="noopener" class="contact-card">
-          <span class="contact-card__icon">${icon}</span>
-          <div class="contact-card__text">
-            <span class="contact-card__label">${s.label}</span>
-            <span class="contact-card__value">${value}</span>
-          </div>
+        <a href="${s.url}" target="_blank" rel="noopener" class="mac-contact__item">
+          <span class="mac-contact__key">${icon} ${s.label}</span>
+          <span class="mac-contact__val">${value}</span>
         </a>`;
     }).join("");
 
