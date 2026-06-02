@@ -540,3 +540,80 @@ a.masonry-item, a.album-card { pointer-events: auto; }
   .about-card--stats .about-stats { grid-template-columns: repeat(3, 1fr); }
   .stat-num { font-size: 1.5rem; }
 }
+/* ============================================================
+   macOS FENSTER-STYLE
+   ============================================================ */
+
+/* Titelleiste */
+.mac-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.7rem 1rem;
+  margin: -2rem -2rem 1.5rem -2rem; /* Karte hat padding: 2rem */
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-radius: 3px 3px 0 0;
+}
+.mac-bar--dark {
+  margin: 0 0 0 0;
+  border-radius: 3px 3px 0 0;
+  background: rgba(0,0,0,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Drei Punkte */
+.mac-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: filter 0.2s;
+}
+.mac-dot--red    { background: #ff5f57; box-shadow: 0 0 0 1px rgba(255,95,87,0.3); }
+.mac-dot--yellow { background: #febc2e; box-shadow: 0 0 0 1px rgba(254,188,46,0.3); }
+.mac-dot--green  { background: #28c840; box-shadow: 0 0 0 1px rgba(40,200,64,0.3); }
+.about-card:hover .mac-dot,
+.contact-main:hover .mac-dot { filter: brightness(1.15); }
+
+/* Dateiname in der Leiste */
+.mac-bar__title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: rgba(232,226,217,0.3);
+  font-family: 'DM Sans', monospace;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Karte braucht kein top-padding mehr (mac-bar übernimmt das) */
+.about-card--bio,
+.about-card--stats {
+  padding-top: 0 !important;
+}
+
+/* Contact-main: mac-bar sitzt ganz oben */
+.contact-main {
+  position: relative;
+  overflow: hidden;
+}
+.contact-main .mac-bar {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+
+/* Foto-Karte: kein mac-bar, aber passende Border-radius */
+.about-card--photo {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .mac-bar { padding: 0.5rem 0.75rem; margin: -1.5rem -1.5rem 1.2rem -1.5rem; }
+  .mac-dot { width: 10px; height: 10px; }
+  .mac-bar__title { font-size: 0.6rem; }
+}
