@@ -64,9 +64,15 @@ def make_html(album_id):
       <a href="{depth}index.html#about">Über mich</a>
       <a href="{depth}index.html#contact">Kontakt</a>
     </div>
-    <button class="burger" id="burger" aria-label="Menü öffnen">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Dark/Light Mode">
+        <img class="theme-toggle__icon theme-toggle__icon--dark" src="{depth}icons/darkmode.svg" alt="Dark Mode" />
+        <img class="theme-toggle__icon theme-toggle__icon--light" src="{depth}icons/lightmode.svg" alt="Light Mode" />
+      </button>
+      <button class="burger" id="burger" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">

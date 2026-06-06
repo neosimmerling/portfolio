@@ -215,3 +215,10 @@ body.light .related-section { background: #ece9e4; border-top-color: rgba(0,0,0,
 body.light .related-card-title { color: #1a1714; }
 body.light .related-card-cat { color: #8a6a2e; }
 body.light .lb-img-wrap { background: transparent; }
+
+body.light .nav {
+  background: linear-gradient(to bottom, rgba(245,242,238,0.7) 0%, transparent 100%);
+}
+body.dark .nav {
+  background: linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, transparent 100%);
+}
