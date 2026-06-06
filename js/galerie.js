@@ -61,6 +61,21 @@
     return;
   }
 
+  // ── Dark / Light Mode ─────────────────────────────────────
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    document.body.classList.add(savedTheme);
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.body.classList.contains("dark");
+      document.body.classList.add("theme-transitioning");
+      document.body.classList.remove("dark", "light");
+      document.body.classList.add(isDark ? "light" : "dark");
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+      setTimeout(() => document.body.classList.remove("theme-transitioning"), 350);
+    });
+  }
+
   // ── Header befüllen ───────────────────────────────────────
   document.title = `${album.title} – ${data.photographer.name}`;
   document.getElementById("footerName").textContent = data.photographer.name;

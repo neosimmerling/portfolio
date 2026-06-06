@@ -198,3 +198,20 @@
 @media (max-width: 390px) {
   .album-header { height: 32vh; min-height: 180px; }
 }
+
+/* === LIGHT MODE – Galerie === */
+body.light .album-header-overlay {
+  background: linear-gradient(to bottom, rgba(245,242,238,0.2) 0%, rgba(245,242,238,0.7) 70%, rgba(245,242,238,0.95) 100%);
+}
+body.light .album-title { color: #1a1714; }
+body.light .album-date { color: rgba(26,23,20,0.5); }
+body.light .album-photo-count { color: #8a6a2e; border-color: rgba(138,106,46,0.35); }
+body.light .back-link { color: rgba(26,23,20,0.5); }
+body.light .back-link:hover { color: #8a6a2e; }
+body.light .mac-pane__label { color: rgba(26,23,20,0.45); }
+body.light .album-section { background: #f5f2ee; }
+body.light #album-grid .masonry-item { border-color: rgba(0,0,0,0.06); }
+body.light .related-section { background: #ece9e4; border-top-color: rgba(0,0,0,0.07); }
+body.light .related-card-title { color: #1a1714; }
+body.light .related-card-cat { color: #8a6a2e; }
+body.light .lb-img-wrap { background: transparent; }
