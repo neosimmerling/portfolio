@@ -90,8 +90,10 @@
     if (subEl) subEl.textContent = "Interesse an einer Zusammenarbeit oder einem Projekt? Schreib mir gerne.";
 
     document.getElementById("contactSocials").innerHTML = p.socials.map(s => {
-      const icons = { Instagram: "📷", LinkedIn: "💼", Twitter: "🐦", Facebook: "📘" };
-      const icon = icons[s.label] || "🔗";
+      const icons = { Instagram: "icons/camera.svg", LinkedIn: "icons/suitcase.svg" };
+      const iconPath = icons[s.label];
+      const isIcon = iconPath && iconPath.endsWith(".svg");
+      const icon = isIcon ? `<img src="${iconPath}" alt="${s.label}" />` : (iconPath || "🔗");
       const value = s.url.replace(/^https?:\/\/(www\.)?/, "");
       return `
         <a href="${s.url}" target="_blank" rel="noopener" class="contact-card">
