@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="../../css/galerie.css" />
 </head>
 <body data-album="ibiza">
-  <div class="page-transition fade-out" id="pageTransition"></div>
+  <div class="page-transition" id="pageTransition"></div>
 
-  <nav class="nav" id="nav">
+  <nav class="nav scrolled" id="nav">
     <a href="../../index.html" class="nav-logo">Neo Simmerling<span>.</span></a>
     <div class="nav-links">
       <a href="../../index.html#gallery">Galerie</a>
@@ -68,8 +68,19 @@
       <img class="lb-img" id="lbImg" src="" alt="" draggable="false" />
     </div>
     <div class="lb-meta">
-      <p class="lb-title"   id="lbTitle"></p>
-      <p class="lb-counter" id="lbCounter"></p>
+      <p class="lb-title" id="lbTitle"></p>
+      <div class="lb-actions">
+        <p class="lb-counter" id="lbCounter"></p>
+        <button class="lb-share" id="lbShare" aria-label="Bild teilen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span class="lb-share__label">Teilen</span>
+        </button>
+        <div class="lb-share-toast" id="lbShareToast">Link kopiert ✓</div>
+      </div>
     </div>
   </div>
 
