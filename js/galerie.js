@@ -23,6 +23,8 @@
   const lbImg      = document.getElementById("lbImg");
   const lbTitle    = document.getElementById("lbTitle");
   const lbCounter  = document.getElementById("lbCounter");
+  const lbShare    = document.getElementById("lbShare");
+  const lbShareToast = document.getElementById("lbShareToast");
   const lbClose    = document.getElementById("lbClose");
   const lbPrev     = document.getElementById("lbPrev");
   const lbNext     = document.getElementById("lbNext");
@@ -241,6 +243,45 @@
   }
 
   lbClose.addEventListener("click", closeLightbox);
+
+  // ── Bild teilen ───────────────────────────────────────────
+  lbShare.addEventListener("click", async () => {
+    const photo = album.photos[currentIndex];
+    const imageUrl = window.location.origin + "/" + p(photo.src);
+    const shareText = `${photo.title || album.title} – ${data.photographer.name}`;
+
+    // Web Share API (nativ auf Mobile)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: shareText,
+          text: shareText,
+          url: window.location.href,
+        });
+        return;
+      } catch (e) {
+        // Abgebrochen oder nicht unterstützt → fallback
+      }
+    }
+
+    // Fallback: URL in Zwischenablage kopieren
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+    } catch (e) {
+      // Ältere Browser
+      const ta = document.createElement("textarea");
+      ta.value = window.location.href;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+
+    // Toast anzeigen
+    lbShareToast.classList.add("show");
+    setTimeout(() => lbShareToast.classList.remove("show"), 2000);
+  });
+
   lbPrev.addEventListener("click",  prevPhoto);
   lbNext.addEventListener("click",  nextPhoto);
   lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });

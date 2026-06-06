@@ -12,19 +12,25 @@
   <link rel="stylesheet" href="css/galerie.css" />
 </head>
 <body>
-  <div class="page-transition fade-out" id="pageTransition"></div>
+  <div class="page-transition" id="pageTransition"></div>
 
   <!-- NAV -->
-  <nav class="nav" id="nav">
+  <nav class="nav scrolled" id="nav">
     <a href="index.html" class="nav-logo">Neo Simmerling<span>.</span></a>
     <div class="nav-links">
       <a href="index.html#gallery">Galerie</a>
       <a href="index.html#about">Über mich</a>
       <a href="index.html#contact">Kontakt</a>
     </div>
-    <button class="burger" id="burger" aria-label="Menü öffnen">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Dark/Light Mode">
+        <img class="theme-toggle__icon theme-toggle__icon--dark" src="icons/darkmode.svg" alt="Dark Mode" />
+        <img class="theme-toggle__icon theme-toggle__icon--light" src="icons/lightmode.svg" alt="Light Mode" />
+      </button>
+      <button class="burger" id="burger" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <!-- MOBILE MENU -->
@@ -70,7 +76,18 @@
     </div>
     <div class="lb-meta">
       <p class="lb-title" id="lbTitle"></p>
-      <p class="lb-counter" id="lbCounter"></p>
+      <div class="lb-actions">
+        <p class="lb-counter" id="lbCounter"></p>
+        <button class="lb-share" id="lbShare" aria-label="Bild teilen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span class="lb-share__label">Teilen</span>
+        </button>
+        <div class="lb-share-toast" id="lbShareToast">Link kopiert ✓</div>
+      </div>
     </div>
   </div>
 
