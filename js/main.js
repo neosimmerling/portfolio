@@ -244,6 +244,39 @@
     });
   }
 
+  // ── Kontaktformular ───────────────────────────────────────
+  const contactForm = document.getElementById("contactForm");
+  if (contactForm) {
+    contactForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const btn     = document.getElementById("cfSubmit");
+      const success = document.getElementById("cfSuccess");
+      const error   = document.getElementById("cfError");
+      btn.textContent = "Wird gesendet…";
+      btn.disabled = true;
+      try {
+        const res = await fetch(contactForm.action, {
+          method: "POST",
+          body: new FormData(contactForm),
+          headers: { Accept: "application/json" }
+        });
+        if (res.ok) {
+          contactForm.reset();
+          success.style.display = "flex";
+          btn.style.display = "none";
+        } else {
+          error.style.display = "block";
+          btn.textContent = "Absenden →";
+          btn.disabled = false;
+        }
+      } catch {
+        error.style.display = "block";
+        btn.textContent = "Absenden →";
+        btn.disabled = false;
+      }
+    });
+  }
+
   // ── Init ──────────────────────────────────────────────────
   populatePersonalData();
   buildGallery("all");
