@@ -11,16 +11,22 @@
   <link rel="stylesheet" href="css/legal.css" />
 </head>
 <body>
-  <nav class="nav scrolled" id="nav">
+    <nav class="nav scrolled" id="nav">
     <a href="index.html" class="nav-logo">Neo Simmerling<span>.</span></a>
     <div class="nav-links">
       <a href="index.html#gallery">Galerie</a>
       <a href="index.html#about">Über mich</a>
       <a href="index.html#contact">Kontakt</a>
     </div>
-    <button class="burger" id="burger" aria-label="Menü öffnen">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Dark/Light Mode">
+        <img class="theme-toggle__icon theme-toggle__icon--dark"  src="icons/darkmode.svg"  alt="Dark Mode"  />
+        <img class="theme-toggle__icon theme-toggle__icon--light" src="icons/lightmode.svg" alt="Light Mode" />
+      </button>
+      <button class="burger" id="burger" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html#gallery" class="mobile-link">Galerie</a>
@@ -89,14 +95,24 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+      <script>
+    const savedTheme = localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    document.body.className = savedTheme;
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const next = document.body.classList.contains("light") ? "dark" : "light";
+      document.body.className = next;
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
     document.getElementById("burger").addEventListener("click", () => {
       document.getElementById("mobileMenu").classList.toggle("open");
     });
     document.querySelectorAll(".mobile-link").forEach(l =>
       l.addEventListener("click", () => document.getElementById("mobileMenu").classList.remove("open"))
     );
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
