@@ -96,17 +96,32 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section class="about-section" id="about">
-    <div class="about-header">
-      <p class="section-eyebrow">Über mich</p>
-      <h2 class="section-title" id="aboutName">Neo Simmerling</h2>
+  <!-- ABOUT + CONTACT: Ein macOS-Fenster -->
+  <section class="mac-section" id="about">
+    <div class="mac-window">
+
+      <!-- Titelleiste -->
+      <div class="mac-titlebar">
+        <div class="mac-dots">
+          <span class="mac-dot mac-dot--red"></span>
+          <span class="mac-dot mac-dot--yellow"></span>
+          <span class="mac-dot mac-dot--green"></span>
+        </div>
+        <span class="mac-titlebar__title">www.neosimmerling.de</span>
+        <div class="mac-titlebar__spacer"></div>
       </div>
 
-    <div class="about-grid">
+      <!-- Fenster-Inhalt -->
+      <div class="mac-body">
 
-      <!-- Karte 1: Foto -->
-      <div class="about-card about-card--photo">
+        <!-- ABOUT -->
+        <div class="mac-pane" id="about-pane">
+          <div class="mac-pane__label">Über mich</div>
+
+          <div class="mac-about-grid">
+
+            <!-- Foto -->
+            <div class="mac-photo">
               <div class="about-img-placeholder" id="aboutImgWrap">
                 <img src="" alt="Porträt" class="about-img" id="aboutImg" style="display:none" />
                 <div class="about-img-fallback" id="aboutFallback">
@@ -116,27 +131,27 @@
                   </svg>
                 </div>
               </div>
-        <div class="about-card__photo-label">
-          <span class="about-card__name" id="aboutCardName">Neo Simmerling</span>
-          <span class="about-card__role">Fotograf</span>
+              <div class="mac-photo__label">
+                <span class="mac-photo__name" id="aboutCardName">Neo Simmerling</span>
+                <span class="mac-photo__role">Fotograf</span>
               </div>
             </div>
 
-      <!-- Karte 2: Bio -->
-      <div class="about-card about-card--bio">
-        <div class="about-card__eyebrow">Über mich</div>
+            <!-- Bio + Stats -->
+            <div class="mac-about-right">
+              <h2 class="mac-name" id="aboutName">Neo Simmerling</h2>
               <div class="about-bio" id="aboutBio"></div>
               <div class="about-tags" id="aboutTagsWrap"></div>
-      </div>
 
-      <!-- Karte 3: Stats -->
-      <div class="about-card about-card--stats">
-        <div class="about-card__eyebrow">Auf einen Blick</div>
-        <div class="about-stats" id="aboutStats"></div>
+              <div class="mac-divider"></div>
+
+              <div class="mac-stats" id="aboutStats"></div>
             </div>
 
           </div>
-  </section>
+        </div>
+
+        <div class="mac-separator"></div>
 
         <!-- CONTACT -->
   <section class="contact-section" id="contact">
@@ -176,38 +191,16 @@
               </div>
             </div>
 
-            <div class="cf-field">
-              <label class="cf-label" for="cf-subject">Betreff</label>
-              <input class="cf-input" id="cf-subject" name="subject"
-                     type="text" placeholder="Worum geht es?" />
+            <div class="mac-contact__links" id="mac-contact-links">
+              <a class="mac-contact__item" id="contactMailto" href="mailto:neosimmerling@gmail.com">
+                <span class="mac-contact__key">✉ E-Mail</span>
+                <span class="mac-contact__val" id="contactMailValue">neosimmerling@gmail.com</span>
+              </a>
+              <div id="contactSocials"></div>
             </div>
+          </div>
 
-            <div class="cf-field">
-              <label class="cf-label" for="cf-message">Nachricht</label>
-              <textarea class="cf-input cf-textarea" id="cf-message" name="message"
-                        rows="5" placeholder="Deine Nachricht..." required></textarea>
-            </div>
-
-            <div class="cf-footer">
-              <p class="cf-privacy">Mit dem Absenden stimmst du der Verarbeitung deiner Daten zu. <a href="datenschutz.html">Datenschutz</a></p>
-              <button class="cf-submit" type="submit" id="cfSubmit">
-                Absenden →
-              </button>
-            </div>
-
-            <div class="cf-success" id="cfSuccess">
-              <span class="cf-success__icon">✓</span>
-              <p>Nachricht gesendet! Ich melde mich bald.</p>
-            </div>
-            <div class="cf-error" id="cfError">
-              <p>Etwas ist schiefgelaufen. Bitte schreib mir direkt: <a id="cfFallbackMail" href="mailto:neosimmerling@gmail.com">neosimmerling@gmail.com</a></p>
-            </div>
-
-          </form>
         </div>
-
-        <!-- Nebenkarten: Socials -->
-        <div class="contact-side" id="contactSocials"></div>
 
       </div>
     </div>
